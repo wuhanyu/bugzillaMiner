@@ -3,12 +3,10 @@ Created on 2013-3-6
 
 @author: Simon@itechs
 '''
-import os
 import glob
 import lxml.html
 
 from pyquery import PyQuery
-from dateutil.parser import parse
 
 def gethistoryName(filename):
     return filename[:-5] + '-history.html'
@@ -17,8 +15,8 @@ def isHtmlValid(title):
     if (cmp(title, 'Access Denied') == 0): return False
     else: return True
 
-def getClearText(str):
-    return str.strip().replace('\n              ', '; ').replace(' ', '_')
+def getClearText(s):
+    return s.strip().replace('\n              ', '; ').replace(' ', '_')
 
 def processFile(filepath):
     #print filepath
