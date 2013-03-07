@@ -20,6 +20,10 @@ def isHtmlValid(title):
 def getClearText(str):
     return str.strip().replace('\n              ', '; ').replace(' ', '_')
 
+def getReportStartTime(dom):
+    items = dom.xpath('//*[@id="bz_show_bug_column_2"]/table/tr[1]/td[2]')
+    return items[0].text[:-4]
+    
 def processFile(filepath):
     #print filepath
     html = open(filepath, 'r').read()
@@ -30,8 +34,7 @@ def processFile(filepath):
 #    print title
     if (not isHtmlValid(title)): return False
     
-    items = dom.xpath('//*[@id="bz_show_bug_column_2"]/table/tr[1]/td[2]')
-#    print items[0].text
+    print getReportStartTime(dom)
 
     return True
 #    td = page('//*[@id="bz_show_bug_column_2"]/table/tbody/tr[1]/td[2]')
@@ -68,6 +71,7 @@ if __name__ == '__main__':
     for filename in files:
         print '*' * 40
 #        print filename
-        if (processFile(filename)):    
-            history_file = gethistoryName(filename)
-            processHistoryFile(history_file)
+        if (processFile(filename)):
+            pass    
+#            history_file = gethistoryName(filename)
+#            processHistoryFile(history_file)
