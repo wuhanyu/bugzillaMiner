@@ -5,6 +5,7 @@ Created on 2013-3-7
 '''
 
 from commonFunc import *
+from dateutil.relativedelta import *
 
 class TimeStatistician(object):
     '''
@@ -53,3 +54,18 @@ class TimeStatistician(object):
         result = result + '-'*20 + 'Finish' + '-'*20 + '\n'
         return result
         
+    def outputCount(self, filepath):
+        file_object = open(filepath, 'w')    
+        for dictname in self.countDict:
+            list = []
+            list.append(dictname + ':\n')
+            time = self.beginTime
+            while (time < self.endTime):
+                timestr = getTimeStr(time)
+                if (self.countDict[dictname].has_key(timestr)):
+                    list.append(timestr + '\t' + str(self.countDict[dictname][timestr]) + '\n')
+                else:
+                    list.append(timestr + '\t0\n')
+                time = time + relativedelta(months=+1)
+            file_object.writelines(list)
+        file_object.close()

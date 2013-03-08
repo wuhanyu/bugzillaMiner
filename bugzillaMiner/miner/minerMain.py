@@ -115,3 +115,4 @@ if __name__ == '__main__':
             processHistoryFile(history_file, ts)
 
     print ts
+    ts.outputCount('../result/count.txt')
