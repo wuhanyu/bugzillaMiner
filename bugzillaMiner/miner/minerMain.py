@@ -39,8 +39,8 @@ def getComments(dom):
         i = i + 1
     return result
     
-def getTitle(page):
-    title = page('title').text()
+def getTitle(dom):
+    title = dom.xpath('//title')[0].text
     return title
 
 def record(timestatis, time, rtype):
@@ -49,76 +49,99 @@ def record(timestatis, time, rtype):
     
 def processFile(filepath, timestatis):
     #print filepath
-    html = open(filepath, 'r').read()
-    dom = lxml.html.fromstring(html)
-    page = PyQuery(html)
-    title = getTitle(page)
+    try:
+        html = open(filepath, 'r').read()
+    except:
+        return False
+        
+    try:
+        dom = lxml.html.fromstring(html)
+        title = getTitle(dom)
+    #    print title
+    #    if (not isHtmlValid(title)): return False
+        
+        reportStartTime = getReportStartTime(dom)
+    #    print reportStartTime
+        record(timestatis, reportStartTime, "reportStart")
+        
+        comments = getComments(dom)
+        for comment in comments:
+            record(timestatis, comment.time, "commentTime")
     
-#    print title
-    if (not isHtmlValid(title)): return False
-    
-    reportStartTime = getReportStartTime(dom)
-#    print reportStartTime
-    record(timestatis, reportStartTime, "reportStart")
-    
-    comments = getComments(dom)
-    for comment in comments:
-        record(timestatis, comment.time, "commentTime")
-
-    return True
+        return True
+    except:
+        error_count = error_count + 1
+        error_list.append(filepath)
+        return False
 #    td = page('//*[@id="bz_show_bug_column_2"]/table/tbody/tr[1]/td[2]')
 #    print td
     
 def processHistoryFile(filepath, timestatis):
-    html = open(filepath, 'r').read()
-    dom = lxml.html.fromstring(html)
-    page = PyQuery(html)
-    title = getTitle(page)
-#    print title
-    
-    items = dom.xpath('//*[@id="bugzilla-body"]/table/tr')
-#    print (items[0].text.strip())
-#    for item in items:
-#        print item
-    for item in items[1:]:
-        children = item.getchildren()
-        author = None
-        timestr = None
-        if (len(children) == 5):
-#            print children[0].text.strip() + '*' * 6
-            content = getClearText(children[2].text_content())
-            timestr = children[1].text_content().strip()
-            author = getClearText(children[0].text_content())
-        else:
-            content = getClearText(children[0].text_content())
-#        print content
-        if (timestr):
-            record(timestatis, timestr, "reportModify")
+    try:
+        html = open(filepath, 'r').read()
+        dom = lxml.html.fromstring(html)
+        title = getTitle(dom)
+    #    print title
+        
+        items = dom.xpath('//*[@id="bugzilla-body"]/table/tr')
+    #    print (items[0].text.strip())
+    #    for item in items:
+    #        print item
+        for item in items[1:]:
+            children = item.getchildren()
+            author = None
+            timestr = None
+            if (len(children) == 5):
+    #            print children[0].text.strip() + '*' * 6
+                content = getClearText(children[2].text_content())
+                timestr = children[1].text_content().strip()
+                author = getClearText(children[0].text_content())
+            else:
+                content = getClearText(children[0].text_content())
+    #        print content
+            if (timestr):
+                record(timestatis, timestr, "reportModify")
+    except:
+        error_count = error_count + 1
+        error_list.append(filepath)
+        return False
             
-                 
+error_count = 0          
+error_list = []         
 if __name__ == '__main__':
-    
     starttime = datetime.datetime.now()
 
     src = 'D:\\mozilla.bugs\\'
 #    src = 'D:\\sample\\'
     print src
-    files = glob.glob(src + '*[0-9].html')
+#    files = glob.glob(src + '*[0-9].html')
     ts = TimeStatistician()
     
 #    processFile(files[0], ts)
 #    history_file = gethistoryName(files[0])
 #    processHistoryFile(history_file, ts)
+#===============================================================================
+#    filecount = 1
+#    for filename in files:
+# #        print '*' * 40
+#        print filename + '\t(' + str(filecount) + ')'
+#        filecount = filecount + 1
+#        if (processFile(filename, ts)):
+#            pass    
+#            history_file = gethistoryName(filename)
+#            processHistoryFile(history_file, ts)
+#===============================================================================
     filecount = 1
-    for filename in files:
-#        print '*' * 40
+    for i in range(0, 600000):
+ #        print '*' * 40
+        filename = src + str(i) + '.html'
         print filename + '\t(' + str(filecount) + ')'
-        filecount = filecount + 1
+        
         if (processFile(filename, ts)):
             pass    
             history_file = gethistoryName(filename)
             processHistoryFile(history_file, ts)
-
+            filecount = filecount + 1
     print ts
     ts.outputCount('../result/count.txt')
     endtime = datetime.datetime.now()
