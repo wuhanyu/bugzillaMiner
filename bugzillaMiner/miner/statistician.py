@@ -57,3 +57,13 @@ class TimeStatistician(object):
         self.renewBound(record)
         self.countRecord(record)
         pass
+    
+    def __str__(self):
+        result = '-'*20 + 'Begin' + '-'*20 + '\n'
+        result = result + 'Begin At : ' + str(self.beginTime) + '\n'
+        result = result + 'End At : ' + str(self.endTime) + '\n'
+        for dictname in self.countDict:
+            result = result + dictname + '  ' + str(self.countDict[dictname]) + '\n'
+        result = result + '-'*20 + 'Finish' + '-'*20 + '\n'
+        return result
+        

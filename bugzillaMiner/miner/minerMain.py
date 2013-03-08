@@ -95,6 +95,5 @@ if __name__ == '__main__':
             pass    
             history_file = gethistoryName(filename)
             processHistoryFile(history_file, ts)
-    print ts.beginTime
-    print ts.endTime
-    print ts.countDict
+
+    print ts
