@@ -8,6 +8,7 @@ import glob
 import lxml.html
 from statistician import *
 from dataobject import *
+import datetime
 
 from pyquery import PyQuery
 from dateutil.parser import parse
@@ -96,7 +97,10 @@ def processHistoryFile(filepath, timestatis):
             
                  
 if __name__ == '__main__':
-    src = 'D:\\mozilla.bugs.test\\'
+    
+    starttime = datetime.datetime.now()
+
+    src = 'D:\\mozilla.bugs\\'
 #    src = 'D:\\sample\\'
     print src
     files = glob.glob(src + '*[0-9].html')
@@ -117,3 +121,5 @@ if __name__ == '__main__':
 
     print ts
     ts.outputCount('../result/count.txt')
+    endtime = datetime.datetime.now()
+    print (endtime - starttime)
