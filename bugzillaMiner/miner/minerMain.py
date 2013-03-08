@@ -96,8 +96,8 @@ def processHistoryFile(filepath, timestatis):
             
                  
 if __name__ == '__main__':
-#    src = 'D:\\mozilla.bugs.test\\'.
-    src = 'D:\\sample\\'
+    src = 'D:\\mozilla.bugs.test\\'
+#    src = 'D:\\sample\\'
     print src
     files = glob.glob(src + '*[0-9].html')
     ts = TimeStatistician()
@@ -105,10 +105,11 @@ if __name__ == '__main__':
 #    processFile(files[0], ts)
 #    history_file = gethistoryName(files[0])
 #    processHistoryFile(history_file, ts)
-    
+    filecount = 1
     for filename in files:
-        print '*' * 40
-        print filename
+#        print '*' * 40
+        print filename + '\t(' + str(filecount) + ')'
+        filecount = filecount + 1
         if (processFile(filename, ts)):
             pass    
             history_file = gethistoryName(filename)
