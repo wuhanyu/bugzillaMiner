@@ -6,6 +6,7 @@ Created on 2013-3-6
 import os
 import glob
 import lxml.html
+from statistician import *
 
 from pyquery import PyQuery
 from dateutil.parser import parse
@@ -23,13 +24,16 @@ def getClearText(str):
 def getReportStartTime(dom):
     items = dom.xpath('//*[@id="bz_show_bug_column_2"]/table/tr[1]/td[2]')
     return items[0].text[:-4]
+
+def getTitle(page):
+    title = page('title').text()
     
 def processFile(filepath):
     #print filepath
     html = open(filepath, 'r').read()
     dom = lxml.html.fromstring(html)
     page = PyQuery(html)
-    title = page('title').text()
+    title = getTitle(page)
     
 #    print title
     if (not isHtmlValid(title)): return False
@@ -44,7 +48,7 @@ def processHistoryFile(filepath):
     html = open(filepath, 'r').read()
     dom = lxml.html.fromstring(html)
     page = PyQuery(html)
-    title = page('title').text()
+    title = getTitle(page)
     print title
     
     items = dom.xpath('//*[@id="bugzilla-body"]/table/tr')
