@@ -131,7 +131,7 @@ class Miner(threading.Thread):
             filename = src + str(index) + '.html'
             index = index + 1
             if (filecount % 100 == 0):
-                print filename + '\t(' + str(filecount) + ')'
+                print filename + '    (' + str(filecount) + ')   ' + str(datetime.datetime.now())
             
             if (processFile(filename, timestatis)):
                 pass    
@@ -147,10 +147,10 @@ global index
 
 if __name__ == '__main__':
     starttime = datetime.datetime.now()
-
-    src = 'D:\\mozilla.bugs\\'
+    src = '/media/DATA/mozilla.bugs/'
+#    src = 'D:\\mozilla.bugs\\'
 #    src = 'D:\\sample\\'
-    print src
+   # print src
     timestatis = TimeStatistician()
     
 #    processFile(files[0], ts)
