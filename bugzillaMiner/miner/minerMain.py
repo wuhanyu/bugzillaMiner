@@ -7,6 +7,7 @@ import os
 import glob
 import lxml.html
 from statistician import *
+from dataobject import *
 
 from pyquery import PyQuery
 from dateutil.parser import parse
@@ -25,6 +26,16 @@ def getReportStartTime(dom):
     items = dom.xpath('//*[@id="bz_show_bug_column_2"]/table/tr[1]/td[2]')
     return items[0].text[:-4]
 
+def getComments(dom):
+    authors = dom.xpath('//*[@id="comments"]/div/div/span/span[@class="vcard"]/span')[1:]
+    times = dom.xpath('//*[@id="comments"]/div/div/span[@class="bz_comment_time"]')[1:]
+    result = []
+    i = 0
+    for time in times:
+        result.append(Comment(authors[i].text.strip(), time.text.strip()))
+        i = i + 1
+    return result
+    
 def getTitle(page):
     title = page('title').text()
     return title
@@ -44,8 +55,12 @@ def processFile(filepath, timestatis):
     if (not isHtmlValid(title)): return False
     
     reportStartTime = getReportStartTime(dom)
-    print reportStartTime
+#    print reportStartTime
     record(timestatis, reportStartTime, "reportStart")
+    
+    comments = getComments(dom)
+    for comment in comments:
+        record(timestatis, comment.time, "commentTime")
 
     return True
 #    td = page('//*[@id="bz_show_bug_column_2"]/table/tbody/tr[1]/td[2]')
@@ -56,7 +71,7 @@ def processHistoryFile(filepath, timestatis):
     dom = lxml.html.fromstring(html)
     page = PyQuery(html)
     title = getTitle(page)
-    print title
+#    print title
     
     items = dom.xpath('//*[@id="bugzilla-body"]/table/tr')
 #    print (items[0].text.strip())
@@ -73,7 +88,7 @@ def processHistoryFile(filepath, timestatis):
             author = getClearText(children[0].text_content())
         else:
             content = getClearText(children[0].text_content())
-        print content
+#        print content
         if (timestr):
             record(timestatis, timestr, "reportModify")
             
@@ -83,17 +98,18 @@ if __name__ == '__main__':
     src = 'D:\\sample\\'
     print src
     files = glob.glob(src + '*[0-9].html')
-    
-#    processFile(files[0])
-#    history_file = gethistoryName(files[0])
-#    processHistoryFile(history_file)
     ts = TimeStatistician()
-    for filename in files:
-        print '*' * 40
-#        print filename
-        if (processFile(filename, ts)):
-            pass    
-            history_file = gethistoryName(filename)
-            processHistoryFile(history_file, ts)
+    
+    processFile(files[0], ts)
+    history_file = gethistoryName(files[0])
+    processHistoryFile(history_file, ts)
+    
+#    for filename in files:
+#        print '*' * 40
+##        print filename
+#        if (processFile(filename, ts)):
+#            pass    
+#            history_file = gethistoryName(filename)
+#            processHistoryFile(history_file, ts)
 
     print ts

@@ -3,22 +3,8 @@ Created on 2013-3-7
 
 @author: Simon
 '''
-from dateutil.parser import parse
-def getTimeStr(time):
-    timestr = str(time)[:7]
-    print timestr
-    return timestr
 
-class Record(object):
-    time = None
-    recordtypeetype = None
-    content = None
-    def __init__(self, timestr, recordtype):
-        if (timestr != None):
-            time = parse(timestr)
-            self.time = time
-        if (recordtype != None):
-            self.recordtype = recordtype
+from commonFunc import *
 
 class TimeStatistician(object):
     '''
