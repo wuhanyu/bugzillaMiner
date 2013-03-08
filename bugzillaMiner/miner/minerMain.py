@@ -3,12 +3,12 @@ Created on 2013-3-6
 
 @author: Simon@itechs
 '''
-import os
-import glob
 import lxml.html
 from statistician import *
 from dataobject import *
 import datetime
+import threading
+import time
 
 from pyquery import PyQuery
 from dateutil.parser import parse
@@ -20,8 +20,8 @@ def isHtmlValid(title):
     if (cmp(title, 'Access Denied') == 0): return False
     else: return True
 
-def getClearText(str):
-    return str.strip().replace('\n              ', '; ').replace(' ', '_')
+def getClearText(tmpstr):
+    return tmpstr.strip().replace('\n              ', '; ').replace(' ', '_')
 
 def getReportStartTime(dom):
     items = dom.xpath('//*[@id="bz_show_bug_column_2"]/table/tr[1]/td[2]')
@@ -50,12 +50,11 @@ def record(timestatis, time, rtype):
 def processFile(filepath, timestatis):
     #print filepath
     try:
-        html = open(filepath, 'r').read()
-    except:
-        return False
-        
-    try:
-        dom = lxml.html.fromstring(html)
+        fp = open(filepath, 'r')
+        html = fp.read()
+        fp.close()
+        dom = None
+        dom = lxml.html.fromstring(html)  
         title = getTitle(dom)
     #    print title
     #    if (not isHtmlValid(title)): return False
@@ -67,18 +66,23 @@ def processFile(filepath, timestatis):
         comments = getComments(dom)
         for comment in comments:
             record(timestatis, comment.time, "commentTime")
-    
         return True
     except:
+        global error_count
+        global error_list
         error_count = error_count + 1
         error_list.append(filepath)
         return False
+        
 #    td = page('//*[@id="bz_show_bug_column_2"]/table/tbody/tr[1]/td[2]')
 #    print td
     
 def processHistoryFile(filepath, timestatis):
     try:
-        html = open(filepath, 'r').read()
+        fp = open(filepath, 'r')
+        html = fp.read()
+        fp.close()
+        dom = None
         dom = lxml.html.fromstring(html)
         title = getTitle(dom)
     #    print title
@@ -93,56 +97,102 @@ def processHistoryFile(filepath, timestatis):
             timestr = None
             if (len(children) == 5):
     #            print children[0].text.strip() + '*' * 6
-                content = getClearText(children[2].text_content())
+#                content = getClearText(children[2].text_content())
                 timestr = children[1].text_content().strip()
-                author = getClearText(children[0].text_content())
+#                author = getClearText(children[0].text_content())
             else:
-                content = getClearText(children[0].text_content())
+                pass
+#                content = getClearText(children[0].text_content())
     #        print content
             if (timestr):
                 record(timestatis, timestr, "reportModify")
     except:
+        global error_count
+        global error_list
         error_count = error_count + 1
         error_list.append(filepath)
         return False
+
+class Miner(threading.Thread):
+    def __init__(self, begin, end, N):
+        threading.Thread.__init__(self)
+        self.begin = begin
+        self.end = end
+        self.N = N
+
+    def run(self):
+        global filecount
+        global timestatis
+        global index
+#        i = self.begin
+#        for i in range(self.begin, self.end):
+        while (index < self.end):
+     #        print '*' * 40
+            filename = src + str(index) + '.html'
+            index = index + 1
+            if (filecount % 100 == 0):
+                print filename + '\t(' + str(filecount) + ')'
             
-error_count = 0          
-error_list = []         
+            if (processFile(filename, timestatis)):
+                pass    
+                history_file = gethistoryName(filename)
+                processHistoryFile(history_file, timestatis)
+                filecount = filecount + 1
+  
+global error_count        
+global error_list
+global filecount
+global timestatis
+global index
+
 if __name__ == '__main__':
     starttime = datetime.datetime.now()
 
     src = 'D:\\mozilla.bugs\\'
 #    src = 'D:\\sample\\'
     print src
-#    files = glob.glob(src + '*[0-9].html')
-    ts = TimeStatistician()
+    timestatis = TimeStatistician()
     
 #    processFile(files[0], ts)
 #    history_file = gethistoryName(files[0])
 #    processHistoryFile(history_file, ts)
-#===============================================================================
+    error_count = 0
+    error_list = []
+    filecount = 1
+    begin = 000000
+    end = 600000
+    miners = []
+    N = 16
+    index = 0
+    for i in range(0, N):
+#        miners.append(Miner(begin + (end-begin) / N * i, begin + (end-begin) / N * (i + 1)))
+        miners.append(Miner(begin, end, N))
+        miners[i].start()
+    
+    flag = True
+    while (flag):
+        flag = False
+        number = 0
+        for miner in miners:
+            if (miner.is_alive()):
+                flag = True
+                number = number + 1
+        print number
+        time.sleep(10)
+
 #    filecount = 1
-#    for filename in files:
+#    for i in range(000000, 600000):
 # #        print '*' * 40
-#        print filename + '\t(' + str(filecount) + ')'
-#        filecount = filecount + 1
-#        if (processFile(filename, ts)):
+#        filename = src + str(i) + '.html'
+#        if (filecount % 100 == 0):
+#            print filename + '\t(' + str(filecount) + ')'
+#        
+#        if (processFile(filename, timestatis)):
 #            pass    
 #            history_file = gethistoryName(filename)
-#            processHistoryFile(history_file, ts)
-#===============================================================================
-    filecount = 1
-    for i in range(0, 600000):
- #        print '*' * 40
-        filename = src + str(i) + '.html'
-        print filename + '\t(' + str(filecount) + ')'
-        
-        if (processFile(filename, ts)):
-            pass    
-            history_file = gethistoryName(filename)
-            processHistoryFile(history_file, ts)
-            filecount = filecount + 1
-    print ts
-    ts.outputCount('../result/count.txt')
+#            processHistoryFile(history_file, timestatis)
+#            filecount = filecount + 1
+    print timestatis
+    timestatis.outputCount('../result/count.txt')
     endtime = datetime.datetime.now()
     print (endtime - starttime)
