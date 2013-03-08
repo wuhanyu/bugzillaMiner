@@ -27,12 +27,14 @@ def getReportStartTime(dom):
     return items[0].text[:-4]
 
 def getComments(dom):
-    authors = dom.xpath('//*[@id="comments"]/div/div/span/span[@class="vcard"]/span')[1:]
+    authors = dom.xpath('//*[@id="comments"]/div/div/span/span[@class="vcard"]')[1:]
     times = dom.xpath('//*[@id="comments"]/div/div/span[@class="bz_comment_time"]')[1:]
     result = []
     i = 0
     for time in times:
-        result.append(Comment(authors[i].text.strip(), time.text.strip()))
+#        print time.text.strip()
+#        print authors[i].text_content().strip()
+        result.append(Comment(authors[i].text_content().strip(), time.text.strip()))
         i = i + 1
     return result
     
@@ -100,16 +102,16 @@ if __name__ == '__main__':
     files = glob.glob(src + '*[0-9].html')
     ts = TimeStatistician()
     
-    processFile(files[0], ts)
-    history_file = gethistoryName(files[0])
-    processHistoryFile(history_file, ts)
+#    processFile(files[0], ts)
+#    history_file = gethistoryName(files[0])
+#    processHistoryFile(history_file, ts)
     
-#    for filename in files:
-#        print '*' * 40
-##        print filename
-#        if (processFile(filename, ts)):
-#            pass    
-#            history_file = gethistoryName(filename)
-#            processHistoryFile(history_file, ts)
+    for filename in files:
+        print '*' * 40
+        print filename
+        if (processFile(filename, ts)):
+            pass    
+            history_file = gethistoryName(filename)
+            processHistoryFile(history_file, ts)
 
     print ts
