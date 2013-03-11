@@ -100,7 +100,7 @@ if __name__ == '__main__':
     
     starttime = datetime.datetime.now()
 
-    src = 'D:\\mozilla.bugs\\'
+    src = 'D:\\mozilla.bugs.test\\'
 #    src = 'D:\\sample\\'
     print src
     files = glob.glob(src + '*[0-9].html')
