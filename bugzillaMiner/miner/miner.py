@@ -60,7 +60,6 @@ def processFile(filepath, timestatis):
         fp = open(filepath, 'r')
         html = fp.read()
         fp.close()
-        dom = None
         dom = lxml.html.fromstring(html)  
         title = getTitle(dom)
     #    print title
@@ -89,7 +88,6 @@ def processHistoryFile(filepath, timestatis):
         fp = open(filepath, 'r')
         html = fp.read()
         fp.close()
-        dom = None
         dom = lxml.html.fromstring(html)
         title = getTitle(dom)
     #    print title
