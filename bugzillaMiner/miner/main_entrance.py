@@ -22,7 +22,7 @@ class Miner(threading.Thread):
 #        i = self.begin
 #        for i in range(self.begin, self.end):
         while (index < self.end):
-     #        print '*' * 40
+#        print '*' * 40
             filename = self.src + str(index) + '.html'
             index = index + 1
             if (filecount % 100 == 0):
