@@ -6,12 +6,19 @@ Created on 2013-3-6
 import lxml.html
 from statistician import *
 from dataobject import *
+from main_entrance import *
 import datetime
-import threading
 import time
+
 
 from pyquery import PyQuery
 from dateutil.parser import parse
+
+global error_count        
+global error_list
+global filecount
+global timestatis
+global index
 
 def gethistoryName(filename):
     return filename[:-5] + '-history.html'
@@ -70,7 +77,7 @@ def processFile(filepath, timestatis):
     except:
         global error_count
         global error_list
-        error_count = error_count + 1
+        error_count += 1
         error_list.append(filepath)
         return False
         
@@ -112,87 +119,3 @@ def processHistoryFile(filepath, timestatis):
         error_count = error_count + 1
         error_list.append(filepath)
         return False
-
-class Miner(threading.Thread):
-    def __init__(self, begin, end, N):
-        threading.Thread.__init__(self)
-        self.begin = begin
-        self.end = end
-        self.N = N
-
-    def run(self):
-        global filecount
-        global timestatis
-        global index
-#        i = self.begin
-#        for i in range(self.begin, self.end):
-        while (index < self.end):
-     #        print '*' * 40
-            filename = src + str(index) + '.html'
-            index = index + 1
-            if (filecount % 100 == 0):
-                print filename + '    (' + str(filecount) + ')   ' + str(datetime.datetime.now())
-            
-            if (processFile(filename, timestatis)):
-                pass    
-                history_file = gethistoryName(filename)
-                processHistoryFile(history_file, timestatis)
-                filecount = filecount + 1
-  
-global error_count        
-global error_list
-global filecount
-global timestatis
-global index
-
-if __name__ == '__main__':
-    starttime = datetime.datetime.now()
-#    src = '/media/DATA/mozilla.bugs/'
-#    src = 'D:\\mozilla.bugs\\'
-    src = 'D:\\sample\\'
-   # print src
-    timestatis = TimeStatistician()
-    
-#    processFile(files[0], ts)
-#    history_file = gethistoryName(files[0])
-#    processHistoryFile(history_file, ts)
-    error_count = 0
-    error_list = []
-    filecount = 1
-    begin = 000000
-    end = 600000
-    miners = []
-    N = 16
-    index = 0
-    for i in range(0, N):
-#        miners.append(Miner(begin + (end-begin) / N * i, begin + (end-begin) / N * (i + 1)))
-        miners.append(Miner(begin, end, N))
-        miners[i].start()
-    
-    flag = True
-    while (flag):
-        flag = False
-        number = 0
-        for miner in miners:
-            if (miner.is_alive()):
-                flag = True
-                number = number + 1
-        print number
-        time.sleep(10)
-
-#    filecount = 1
-#    for i in range(000000, 600000):
-# #        print '*' * 40
-#        filename = src + str(i) + '.html'
-#        if (filecount % 100 == 0):
-#            print filename + '\t(' + str(filecount) + ')'
-#        
-#        if (processFile(filename, timestatis)):
-#            pass    
-#            history_file = gethistoryName(filename)
-#            processHistoryFile(history_file, timestatis)
-#            filecount = filecount + 1
-    print timestatis
-    timestatis.outputCount('../result/count.txt')
-    endtime = datetime.datetime.now()
-    print (endtime - starttime)
