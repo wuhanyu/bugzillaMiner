@@ -5,10 +5,8 @@ Created on 2013-3-6
 '''
 from miner import *
 import datetime
-error_count = 0
-error_list = []
-filecount = 1
-timestatis = TimeStatistician()
+from gl import *
+
 
 if __name__ == '__main__':
     '''
@@ -19,7 +17,7 @@ if __name__ == '__main__':
 #    src = 'D:\\mozilla.bugs\\'
     src = 'D:\\sample\\'
    # print src
-    
+    processor = getProcessorFromTaskType(TASK_TYPE)
 
     begin = 240000
     end = 252450
@@ -33,13 +31,12 @@ if __name__ == '__main__':
             print filename + '\t(' + str(filecount) + ')'
             flag = False
         
-        if (processFile(filename, timestatis)):
-            pass    
+        if (processFile(filename, processor)):  
             history_file = gethistoryName(filename)
-            processHistoryFile(history_file, timestatis)
+            processHistoryFile(history_file, processor)
             filecount = filecount + 1
             flag = True
-    print timestatis
-    timestatis.outputCount('../result/count.txt')
+    print processor
+    output(processor)
     endtime = datetime.datetime.now()
     print (endtime - starttime)

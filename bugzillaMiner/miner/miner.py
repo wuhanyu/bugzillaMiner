@@ -6,7 +6,7 @@ Created on 2013-3-6
 import lxml.html
 from statistician import *
 from dataobject import *
-from main_entrance import *
+from gl import *
 import datetime
 import time
 
@@ -19,13 +19,6 @@ global error_list
 global filecount
 global timestatis
 global index
-
-def gethistoryName(filename):
-    return filename[:-5] + '-history.html'
-
-def isHtmlValid(title):
-    if (cmp(title, 'Access Denied') == 0): return False
-    else: return True
 
 def getClearText(tmpstr):
     return tmpstr.strip().replace('\n              ', '; ').replace(' ', '_')
