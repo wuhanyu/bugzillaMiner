@@ -11,6 +11,9 @@ filecount = 1
 timestatis = TimeStatistician()
 
 if __name__ == '__main__':
+    '''
+    Test script for the miner
+    '''
     starttime = datetime.datetime.now()
 #    src = '/media/DATA/mozilla.bugs/'
 #    src = 'D:\\mozilla.bugs\\'

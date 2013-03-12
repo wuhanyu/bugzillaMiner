@@ -9,7 +9,7 @@ from dateutil.relativedelta import *
 
 class TimeStatistician(object):
     '''
-    classdocs
+    Statistic for the information displayed in time sequences
     '''
     timeSeq = []
     countDict = {}

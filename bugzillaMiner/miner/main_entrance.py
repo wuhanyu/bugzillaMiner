@@ -8,6 +8,9 @@ import datetime
 import threading
 
 class Miner(threading.Thread):
+    '''
+    Each Class Miner has an independent tread
+    '''
     def __init__(self, begin, end, N, src):
         threading.Thread.__init__(self)
         self.begin = begin
@@ -41,6 +44,9 @@ filecount = 1
 index = 0
 
 if __name__ == '__main__':
+    '''
+    Main script for the miner, optimized by multi-threading tech
+    '''
     starttime = datetime.datetime.now()
 #    src = '/media/DATA/mozilla.bugs/'
     src = 'D:\\mozilla.bugs.test\\'

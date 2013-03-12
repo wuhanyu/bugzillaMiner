@@ -7,6 +7,9 @@ from dateutil.parser import parse
 import types
 
 class Comment(object):
+    '''
+    Data jam for Comment Object, each is a comment posted by a DEV
+    '''
     author = None
     time = None
     def __init__(self, author, timestr):
@@ -21,6 +24,9 @@ class Comment(object):
         '''
 
 class Record(object):
+    '''
+    Data jam for an modifying action made by core DEV
+    '''
     time = None
     recordtypeetype = None
     content = None
