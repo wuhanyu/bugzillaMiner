@@ -52,6 +52,31 @@ class TimeStatistician(object):
             if (timestr):
                 self.processRecord(Record(timestr, "reportModify"))
         pass
+    
+    def __str__(self):
+        result = '-'*20 + 'Begin' + '-'*20 + '\n'
+        result = result + 'Begin At : ' + str(self.beginTime) + '\n'
+        result = result + 'End At : ' + str(self.endTime) + '\n'
+        for dictname in self.countDict:
+            result = result + dictname + '  ' + str(self.countDict[dictname]) + '\n'
+        result = result + '-'*20 + 'Finish' + '-'*20 + '\n'
+        return result
+        
+    def outputCount(self, filepath):
+        file_object = open(filepath, 'w')    
+        for dictname in self.countDict:
+            list = []
+            list.append(dictname + ':\n')
+            time = self.beginTime
+            while (time < self.endTime):
+                timestr = getTimeStr(time)
+                if (self.countDict[dictname].has_key(timestr)):
+                    list.append(timestr + '\t' + str(self.countDict[dictname][timestr]) + '\n')
+                else:
+                    list.append(timestr + '\t0\n')
+                time = time + relativedelta(months=+1)
+            file_object.writelines(list)
+        file_object.close()
         
     def renewBound(self, record):
         if (self.beginTime == None):
@@ -79,30 +104,7 @@ class TimeStatistician(object):
         self.countRecord(record)
         pass
     
-    def __str__(self):
-        result = '-'*20 + 'Begin' + '-'*20 + '\n'
-        result = result + 'Begin At : ' + str(self.beginTime) + '\n'
-        result = result + 'End At : ' + str(self.endTime) + '\n'
-        for dictname in self.countDict:
-            result = result + dictname + '  ' + str(self.countDict[dictname]) + '\n'
-        result = result + '-'*20 + 'Finish' + '-'*20 + '\n'
-        return result
-        
-    def outputCount(self, filepath):
-        file_object = open(filepath, 'w')    
-        for dictname in self.countDict:
-            list = []
-            list.append(dictname + ':\n')
-            time = self.beginTime
-            while (time < self.endTime):
-                timestr = getTimeStr(time)
-                if (self.countDict[dictname].has_key(timestr)):
-                    list.append(timestr + '\t' + str(self.countDict[dictname][timestr]) + '\n')
-                else:
-                    list.append(timestr + '\t0\n')
-                time = time + relativedelta(months=+1)
-            file_object.writelines(list)
-        file_object.close()
+
         
 class SequenceStatistician(object):
     def __init__(self):
