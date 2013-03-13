@@ -8,3 +8,4 @@ error_list = []
 filecount = 1
 TASK_TYPE = "TimeStatistic"
 index = 0
+DEBUG = False

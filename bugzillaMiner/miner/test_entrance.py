@@ -5,10 +5,11 @@ Created on 2013-3-6
 '''
 from miner import *
 import datetime
-from gl import *
+import gl
+from commonFunc import *
 
-DEBUG = True
 if __name__ == '__main__':
+    gl.DEBUG = True
     '''
     Test script for the miner
     '''
@@ -17,7 +18,7 @@ if __name__ == '__main__':
 #    src = 'D:\\mozilla.bugs.test\\'
     src = 'D:\\sample\\'
    # print src
-    processor = getProcessorFromTaskType(TASK_TYPE)
+    processor = getProcessorFromTaskType(gl.TASK_TYPE)
 
     begin = 240000
     end = 252450
@@ -39,8 +40,8 @@ if __name__ == '__main__':
             filecount = filecount + 1
             flag = True
     print processor
+    
     output(processor)
     endtime = datetime.datetime.now()
     print (endtime - starttime)
-    global error_list
-    print error_list
+    print gl.error_list

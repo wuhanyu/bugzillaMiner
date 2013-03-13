@@ -6,7 +6,6 @@ Created on 2013-3-6
 
 from statistician import *
 from dataobject import *
-from gl import *
 import datetime
 import time
 

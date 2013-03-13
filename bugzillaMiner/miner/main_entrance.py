@@ -5,6 +5,7 @@ Created on 2013-3-6
 '''
 from miner import *
 from gl import *
+from commonFunc import *
 import datetime
 import threading
 
@@ -23,23 +24,21 @@ class Miner(threading.Thread):
     def run(self):
 #        i = self.begin
 #        for i in range(self.begin, self.end):
-        global index
-        global filecount
-        while (index < self.end):
+        while (gl.index < self.end):
 #        print '*' * 40
-            filename = self.src + str(index) + '.html'
-            index = index + 1
-            if (filecount % 100 == 0):
-                print filename + '    (' + str(filecount) + ')   ' + str(datetime.datetime.now())
+            filename = self.src + str(gl.index) + '.html'
+            gl.index = gl.index + 1
+            if (gl.filecount % 100 == 0):
+                print filename + '    (' + str(gl.filecount) + ')   ' + str(datetime.datetime.now())
             
             if (processFile(filename, self.processor)):
                 pass    
                 history_file = gethistoryName(filename)
                 processHistoryFile(history_file, self.processor)
-                filecount = filecount + 1
-
-DEBUG = False                
+                gl.filecount = gl.filecount + 1
+           
 if __name__ == '__main__':
+    gl.DEBUG = False
     '''
     Main script for the miner, optimized by multi-threading tech
     '''
@@ -47,12 +46,12 @@ if __name__ == '__main__':
 #    src = '/media/DATA/mozilla.bugs/'
     src = 'D:\\mozilla.bugs.test\\'
 #    src = 'D:\\sample\\'
-    processor = getProcessorFromTaskType(TASK_TYPE)
+    processor = getProcessorFromTaskType(gl.TASK_TYPE)
     begin = 000000
     end = 600000
     miners = []
     N = 16
-    index = begin
+    gl.index = begin
     for i in range(0, N):
         miners.append(Miner(begin, end, N, src, processor))
         miners[i].start()

@@ -7,9 +7,8 @@ import datetime
 import statistician
 import lxml.html
 import sys
-from gl import *
+import gl
 from dataobject import *
-
 
 def getTimeStr(time):
     timestr = str(time)[:7]
@@ -23,7 +22,7 @@ def gethistoryName(filename):
     return filename[:-5] + '-history.html'
 
 def output(processor):
-    OUTPUT_PATH = '../result/' + TASK_TYPE + '_' + str(datetime.datetime.now()).replace(":", '')[0:15] + '.txt'
+    OUTPUT_PATH = '../result/' + gl.TASK_TYPE + '_' + str(datetime.datetime.now()).replace(":", '')[0:15] + '.txt'
     print OUTPUT_PATH
     processor.outputCount(OUTPUT_PATH)
     
@@ -50,12 +49,16 @@ def getReportStartTime(dom):
 def getComments(dom):
     authors = dom.xpath('//*[@id="comments"]/div/div/span/span[@class="vcard"]')[1:]
     times = dom.xpath('//*[@id="comments"]/div/div/span[@class="bz_comment_time"]')[1:]
+    contents = dom.xpath('//*[@id="comments"]/div/pre[@class="bz_comment_text"]')[1:]
     result = []
     i = 0
     for time in times:
 #        print time.text.strip()
 #        print authors[i].text_content().strip()
-        result.append(Comment(authors[i].text_content().strip(), time.text.strip()))
+        author = authors[i].text_content().strip()
+        timestr = time.text.strip()
+        content = getClearText(contents[i].text_content())
+        result.append(Comment(author, timestr, content))
         i = i + 1
     return result
 
@@ -90,11 +93,8 @@ def getDomOfFile(filepath):
     return dom
 
 def errorHandle(filepath):
-    global error_count
-    global error_list
-    global DEBUG
     print "Unexpected error:", sys.exc_info()
-    error_count += 1
-    error_list.append(filepath)
-    if (DEBUG):
+    gl.error_count += 1
+    gl.error_list.append(filepath)
+    if (gl.DEBUG):
         raise

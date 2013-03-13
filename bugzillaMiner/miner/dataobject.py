@@ -12,13 +12,23 @@ class Comment(object):
     '''
     author = None
     time = None
-    def __init__(self, author, timestr):
+    content = None
+    def __init__(self, author, timestr, content):
         if (author):
             self.author = author
         if (timestr):
             time = parse(timestr)
             self.time = time
+        if(content):
+            self.content = content
         pass
+    
+            
+    def __str__(self):
+        result = str(self.author) + '\n'
+        result += str(self.time) + '\n'
+        result += str(self.content) + '\n'
+        return result 
     
 class Modification(object):
     '''
@@ -66,4 +76,4 @@ class Record(object):
             else:
                 self.time = timestr
         if (recordtype):
-            self.recordtype = recordtype       
+            self.recordtype = recordtype

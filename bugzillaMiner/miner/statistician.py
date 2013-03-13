@@ -5,6 +5,7 @@ Created on 2013-3-7
 '''
 
 from commonFunc import *
+from dataobject import *
 from dateutil.relativedelta import *
 
 class TimeStatistician(object):
@@ -25,13 +26,14 @@ class TimeStatistician(object):
         
         comments = getComments(dom)
         for comment in comments:
+            print comment
             self.processRecord(Record(comment.time, "commentTime"))
         pass
     
     def processHistoryFile(self, dom):       
         modifications = getModifications(dom)
         for modi in modifications:
-            print str(modi)
+#            print str(modi)
             if (modi.time):
                 self.processRecord(Record(modi.time, "reportModify"))
         pass
