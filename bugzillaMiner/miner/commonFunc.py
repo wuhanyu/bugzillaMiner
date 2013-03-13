@@ -7,6 +7,7 @@ import datetime
 import statistician
 from gl import *
 
+
 def getTimeStr(time):
     timestr = str(time)[:7]
     return timestr
@@ -24,7 +25,7 @@ def getProcessorFromTaskType(TASK_TYPE):
     if (cmp(TASK_TYPE, "TimeStatistic")==0):
         processor = statistician.TimeStatistician()
     elif (cmp(TASK_TYPE, "SequenceStatistic")==0):
-        pass
+        processor = statistician.SequenceStatistician()
     elif (cmp(TASK_TYPE, "SequenceExctractor")==0):
         pass
     else:

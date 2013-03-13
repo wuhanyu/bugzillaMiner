@@ -69,3 +69,7 @@ class TimeStatistician(object):
                 time = time + relativedelta(months=+1)
             file_object.writelines(list)
         file_object.close()
+        
+class SequenceStatistician(object):
+    def __init__(self):
+        pass
