@@ -14,16 +14,16 @@ if __name__ == '__main__':
     '''
     starttime = datetime.datetime.now()
 #    src = '/media/DATA/mozilla.bugs/'
-    src = 'D:\\mozilla.bugs.test\\'
-#    src = 'D:\\sample\\'
+#    src = 'D:\\mozilla.bugs.test\\'
+    src = 'D:\\sample\\'
    # print src
     processor = getProcessorFromTaskType(TASK_TYPE)
 
     begin = 240000
     end = 252450
-#    begin = 248115
+    begin = 248115
 #    end = begin + 1
-    filecount = 1
+#    filecount = 1
     flag = True
     for i in range(begin, end):
  #        print '*' * 40

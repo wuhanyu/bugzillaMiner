@@ -19,13 +19,27 @@ class Comment(object):
             time = parse(timestr)
             self.time = time
         pass
-        '''
-        Constructor
-        '''
+    
+class Modification(object):
+    '''
+    Data jam for Modification Object, each is a modifications made by a core DEV
+    '''
+    author = None
+    time = None
+    content = None
+    def __init__(self, author, timestr, content):
+        if (author):
+            self.author = author
+        if (timestr):
+            time = parse(timestr)
+            self.time = time
+        if (content):
+            self.content = content
+        pass
 
 class Record(object):
     '''
-    Data jam for an modifying action made by core DEV
+    Data jam for an statistic record
     '''
     time = None
     recordtypeetype = None

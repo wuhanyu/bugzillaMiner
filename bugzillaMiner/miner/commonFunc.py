@@ -54,6 +54,21 @@ def getComments(dom):
         result.append(Comment(authors[i].text_content().strip(), time.text.strip()))
         i = i + 1
     return result
+
+def getModifications(dom):
+    result = []
+    items = dom.xpath('//*[@id="bugzilla-body"]/table/tr')
+
+    for item in items[1:]:
+        children = item.getchildren()
+        if (len(children) == 5):
+            content = getClearText(children[2].text_content())
+            timestr = children[1].text_content().strip()
+            author = getClearText(children[0].text_content())
+        else:
+            content = getClearText(children[0].text_content())
+        result.append(Modification(author, timestr, content))
+    return result
     
 def getTitle(dom):
     title = dom.xpath('//title')[0].text
@@ -72,3 +87,4 @@ def errorHandle(filepath):
     print "Unexpected error:", sys.exc_info()
     error_count += 1
     error_list.append(filepath)
+    raise
