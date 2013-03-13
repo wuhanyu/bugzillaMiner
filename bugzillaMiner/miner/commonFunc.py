@@ -62,12 +62,16 @@ def getModifications(dom):
     for item in items[1:]:
         children = item.getchildren()
         if (len(children) == 5):
+            add = getClearText(children[4].text_content())
+            remove = getClearText(children[3].text_content())
             content = getClearText(children[2].text_content())
             timestr = children[1].text_content().strip()
             author = getClearText(children[0].text_content())
         else:
+            add = getClearText(children[2].text_content())
+            remove = getClearText(children[1].text_content())
             content = getClearText(children[0].text_content())
-        result.append(Modification(author, timestr, content))
+        result.append(Modification(author, timestr, content, remove, add))
     return result
     
 def getTitle(dom):

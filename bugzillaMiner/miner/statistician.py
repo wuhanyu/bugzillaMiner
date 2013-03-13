@@ -31,6 +31,7 @@ class TimeStatistician(object):
     def processHistoryFile(self, dom):       
         modifications = getModifications(dom)
         for modi in modifications:
+            print str(modi)
             if (modi.time):
                 self.processRecord(Record(modi.time, "reportModify"))
         pass

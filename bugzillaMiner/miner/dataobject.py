@@ -27,7 +27,9 @@ class Modification(object):
     author = None
     time = None
     content = None
-    def __init__(self, author, timestr, content):
+    remove = None
+    add = None
+    def __init__(self, author, timestr, content, remove, add):
         if (author):
             self.author = author
         if (timestr):
@@ -35,7 +37,19 @@ class Modification(object):
             self.time = time
         if (content):
             self.content = content
+        if (remove):
+            self.remove = remove
+        if (add):
+            self.add = add
         pass
+    
+    def __str__(self):
+        result = str(self.author) + '\n'
+        result += str(self.time) + '\n'
+        result += str(self.content) + '\n'
+        result += str(self.remove) + '\n'
+        result += str(self.add) + '\n'
+        return result
 
 class Record(object):
     '''
