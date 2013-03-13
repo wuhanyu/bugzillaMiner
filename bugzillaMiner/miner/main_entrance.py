@@ -37,7 +37,8 @@ class Miner(threading.Thread):
                 history_file = gethistoryName(filename)
                 processHistoryFile(history_file, self.processor)
                 filecount = filecount + 1
-                
+
+DEBUG = False                
 if __name__ == '__main__':
     '''
     Main script for the miner, optimized by multi-threading tech

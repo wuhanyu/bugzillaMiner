@@ -15,6 +15,10 @@ def getTimeStr(time):
     timestr = str(time)[:7]
     return timestr
 
+def getTimeStrYear(time):
+    timestr = str(time)[:4]
+    return timestr
+
 def gethistoryName(filename):
     return filename[:-5] + '-history.html'
 
@@ -88,7 +92,9 @@ def getDomOfFile(filepath):
 def errorHandle(filepath):
     global error_count
     global error_list
+    global DEBUG
     print "Unexpected error:", sys.exc_info()
     error_count += 1
     error_list.append(filepath)
-    raise
+    if (DEBUG):
+        raise

@@ -7,7 +7,7 @@ from miner import *
 import datetime
 from gl import *
 
-
+DEBUG = True
 if __name__ == '__main__':
     '''
     Test script for the miner
