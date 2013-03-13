@@ -21,6 +21,8 @@ if __name__ == '__main__':
 
     begin = 240000
     end = 252450
+#    begin = 248115
+#    end = begin + 1
     filecount = 1
     flag = True
     for i in range(begin, end):
@@ -40,3 +42,5 @@ if __name__ == '__main__':
     output(processor)
     endtime = datetime.datetime.now()
     print (endtime - starttime)
+    global error_list
+    print error_list

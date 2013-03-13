@@ -11,13 +11,47 @@ class TimeStatistician(object):
     '''
     Statistic for the information displayed in time sequences
     '''
-    timeSeq = []
     countDict = {}
     beginTime = None
     endTime = None
 
     def __init__(self):
-        timeSeq = []
+        pass
+        
+    def processFile(self, dom):
+        reportStartTime = getReportStartTime(dom)
+    #    print reportStartTime
+        self.processRecord(Record(reportStartTime, "reportStart"))
+        
+        comments = getComments(dom)
+        for comment in comments:
+            self.processRecord(Record(comment.time, "commentTime"))
+        pass
+    
+    def processHistoryFile(self, dom):
+        title = getTitle(dom)
+    #    print title
+        
+        items = dom.xpath('//*[@id="bugzilla-body"]/table/tr')
+    #    print (items[0].text.strip())
+    #    for item in items:
+    #        print item
+        for item in items[1:]:
+            children = item.getchildren()
+            author = None
+            timestr = None
+            if (len(children) == 5):
+    #            print children[0].text.strip() + '*' * 6
+#                content = getClearText(children[2].text_content())
+                timestr = children[1].text_content().strip()
+#                author = getClearText(children[0].text_content())
+            else:
+                pass
+#                content = getClearText(children[0].text_content())
+    #        print content
+            if (timestr):
+                self.processRecord(Record(timestr, "reportModify"))
+        pass
         
     def renewBound(self, record):
         if (self.beginTime == None):
