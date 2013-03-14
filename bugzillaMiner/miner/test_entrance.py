@@ -17,28 +17,22 @@ if __name__ == '__main__':
 #    src = '/media/DATA/mozilla.bugs/'
 #    src = 'D:\\mozilla.bugs.test\\'
     src = 'D:\\sample\\'
-   # print src
+#    print src
     processor = getProcessorFromTaskType(gl.TASK_TYPE)
 
     begin = 240000
     end = 252450
-    begin = 248115
-    end = begin + 1
+#    begin = 248115
+#    end = begin + 1
     filecount = 1
-    flag = True
     for i in range(begin, end):
  #        print '*' * 40
         
         filename = src + str(i) + '.html'
-        if (flag):
-            print filename + '\t(' + str(filecount) + ')'
-            flag = False
         
         if (processFile(filename, processor)):  
-            history_file = gethistoryName(filename)
-            processHistoryFile(history_file, processor)
             filecount = filecount + 1
-            flag = True
+            print filename + '\t(' + str(filecount) + ')'
     print processor
     
     output(processor)

@@ -33,8 +33,6 @@ class Miner(threading.Thread):
             
             if (processFile(filename, self.processor)):
                 pass    
-                history_file = gethistoryName(filename)
-                processHistoryFile(history_file, self.processor)
                 gl.filecount = gl.filecount + 1
            
 if __name__ == '__main__':

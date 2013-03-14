@@ -18,7 +18,7 @@ class TimeStatistician(object):
     def __init__(self):
         pass
         
-    def processFile(self, dom):
+    def processFile(self, dom, hdom):
         reportStartTime = getReportStartTime(dom)
     #    print reportStartTime
         self.processRecord(Record(reportStartTime, "reportStart"))
@@ -27,10 +27,10 @@ class TimeStatistician(object):
         for comment in comments:
 #            print comment
             self.processRecord(Record(comment.time, "commentTime"))
+            
         pass
-    
-    def processHistoryFile(self, dom):       
-        modifications = getModifications(dom)
+        #==================history==================
+        modifications = getModifications(hdom)
         for modi in modifications:
 #            print str(modi)
             if (modi.time):
@@ -96,9 +96,6 @@ class SequenceStatistician(object):
         pass
     
     def processFile(self, dom):
-        pass
-    
-    def processHistoryFile(self, dom):
         pass
     
     def __str__(self):

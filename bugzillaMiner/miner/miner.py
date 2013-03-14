@@ -6,6 +6,7 @@ Created on 2013-3-6
 
 from statistician import *
 from dataobject import *
+from commonFunc import *
 import datetime
 import time
 
@@ -16,25 +17,13 @@ from dateutil.parser import parse
 def processFile(filepath, processor):
     #print filepath
     try:
+        history_filepath = gethistoryName(filepath)
         dom = getDomOfFile(filepath)
+        hdom = getDomOfFile(history_filepath)
         title = getTitle(dom)
-    #    print title
-    #    if (not isHtmlValid(title)): return False
-        processor.processFile(dom)
-        return True
-    except IOError:
-        pass
-    except:
-        errorHandle(filepath)
-        return False
         
-#    td = page('//*[@id="bz_show_bug_column_2"]/table/tbody/tr[1]/td[2]')
-#    print td
-    
-def processHistoryFile(filepath, processor):
-    try:
-        dom = getDomOfFile(filepath)
-        processor.processHistoryFile(dom)
+    #    print title
+        processor.processFile(dom, hdom)
         return True
     except IOError:
         pass
