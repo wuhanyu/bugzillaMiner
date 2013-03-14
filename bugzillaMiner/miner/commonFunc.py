@@ -57,7 +57,7 @@ def getComments(dom):
 #        print authors[i].text_content().strip()
         author = authors[i].text_content().strip()
         timestr = time.text.strip()
-        content = getClearText(contents[i].text_content())
+        content = contents[i].text_content().strip()
         result.append(Comment(author, timestr, content))
         i = i + 1
     return result

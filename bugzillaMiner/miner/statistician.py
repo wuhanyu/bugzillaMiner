@@ -25,7 +25,7 @@ class TimeStatistician(object):
         
         comments = getComments(dom)
         for comment in comments:
-            print comment
+#            print comment
             self.processRecord(Record(comment.time, "commentTime"))
         pass
     
