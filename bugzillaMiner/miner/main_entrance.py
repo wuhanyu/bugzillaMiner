@@ -4,7 +4,7 @@ Created on 2013-3-6
 @author: Simon@itechs
 '''
 from miner import *
-from gl import *
+import gl
 from commonFunc import *
 import datetime
 import threading
