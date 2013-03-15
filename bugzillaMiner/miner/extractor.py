@@ -19,7 +19,7 @@ class SequenceExtractor(object):
         reportStartTime = commonFunc.getReportStartTime(dom)
     #    print reportStartTime
         comments = commonFunc.getComments(dom)
-        title = commonFunc.getTitle(dom).split(' – ')[0][4:]
+        title = commonFunc.getTitle(dom).split(u' – ')[0][4:]
         
 
         #==================history==================
