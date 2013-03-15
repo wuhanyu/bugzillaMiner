@@ -88,6 +88,7 @@ class SequenceDataExtractor(object):
                 line += str(dcount - md_index - 1) + '\t'
                 md_index = dcount
                 dtime = modi.time
+                print line
                 tmplines.append(title + '\t' + line + '\n')
             count += 1
         if (output):

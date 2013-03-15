@@ -11,7 +11,7 @@ import gl
 import commonFunc
 
 if __name__ == '__main__':
-    gl.TASK_TYPE = "SequenceExctractor"
+    gl.TASK_TYPE = "SequenceDataExctractor"
     gl.DEBUG = True
     '''
     Test script for the miner
@@ -27,8 +27,8 @@ if __name__ == '__main__':
 
     begin = 240000
     end = 252450
-#    begin = 248115
-#    end = begin + 1
+    begin = 248115
+    end = begin + 1
     filecount = 0
     for i in range(begin, end):
  #        print '*' * 40
