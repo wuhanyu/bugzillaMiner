@@ -12,6 +12,7 @@ class TimeStatistician(object):
     '''
     Statistic for the information displayed in time sequences
     '''
+    IS_FINAL_OUTPUT = True
     countDict = {}
     beginTime = None
     endTime = None
@@ -19,7 +20,7 @@ class TimeStatistician(object):
     def __init__(self):
         pass
         
-    def processFile(self, dom, hdom):
+    def processFile(self, dom, hdom, output=None):
         reportStartTime = commonFunc.getReportStartTime(dom)
     #    print reportStartTime
         self.processRecord(Record(reportStartTime, "reportStart"))

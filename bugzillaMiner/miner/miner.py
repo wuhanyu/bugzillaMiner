@@ -14,7 +14,7 @@ import time
 from pyquery import PyQuery
 from dateutil.parser import parse
     
-def processFile(filepath, processor):
+def processFile(filepath, processor, output=None):
     #print filepath
     try:
         history_filepath = gethistoryName(filepath)
@@ -23,10 +23,15 @@ def processFile(filepath, processor):
         title = getTitle(dom)
         
     #    print title
-        processor.processFile(dom, hdom)
+        if (output):
+            processor.processFile(dom, hdom, output)
+        else:
+            processor.processFile(dom, hdom)
         return True
     except IOError:
         pass
+    except IndexError:
+        print title
     except:
         errorHandle(filepath)
         return False

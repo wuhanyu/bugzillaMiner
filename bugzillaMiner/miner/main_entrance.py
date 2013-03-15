@@ -5,7 +5,7 @@ Created on 2013-3-6
 '''
 from miner import *
 import gl
-from commonFunc import *
+import commonFunc
 import datetime
 import threading
 
@@ -13,13 +13,14 @@ class Miner(threading.Thread):
     '''
     Each Class Miner has an independent tread
     '''
-    def __init__(self, begin, end, N, src, processor):
+    def __init__(self, begin, end, N, src, processor, output):
         threading.Thread.__init__(self)
         self.begin = begin
         self.end = end
         self.N = N
         self.src = src
         self.processor = processor
+        self.output = output
 
     def run(self):
 #        i = self.begin
@@ -31,7 +32,7 @@ class Miner(threading.Thread):
             if (gl.filecount % 100 == 0):
                 print filename + '    (' + str(gl.filecount) + ')   ' + str(datetime.datetime.now())
             
-            if (processFile(filename, self.processor)):
+            if (processFile(filename, self.processor, self.output)):
                 pass    
                 gl.filecount = gl.filecount + 1
            
@@ -41,17 +42,18 @@ if __name__ == '__main__':
     Main script for the miner, optimized by multi-threading tech
     '''
     starttime = datetime.datetime.now()
-#    src = '/media/DATA/mozilla.bugs/'
-    src = 'D:\\mozilla.bugs.test\\'
+    src = '/media/DATA/mozilla.bugs/'
+#    src = 'D:\\mozilla.bugs.test\\'
 #    src = 'D:\\sample\\'
-    processor = getProcessorFromTaskType(gl.TASK_TYPE)
+    processor = commonFunc.getProcessorFromTaskType(gl.TASK_TYPE)
+    output = commonFunc.getOutput(processor)
     begin = 000000
     end = 600000
     miners = []
     N = 16
     gl.index = begin
     for i in range(0, N):
-        miners.append(Miner(begin, end, N, src, processor))
+        miners.append(Miner(begin, end, N, src, processor, output))
         miners[i].start()
     
     flag = True
@@ -65,6 +67,8 @@ if __name__ == '__main__':
         print number
         time.sleep(10)
     print processor
-    output(processor)
+    commonFunc.output(processor)
     endtime = datetime.datetime.now()
     print (endtime - starttime)
+    if (output):
+        output.close()

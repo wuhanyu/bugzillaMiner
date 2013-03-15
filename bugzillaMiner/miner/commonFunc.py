@@ -22,8 +22,19 @@ def getTimeStrYear(time):
 def gethistoryName(filename):
     return filename[:-5] + '-history.html'
 
+def getOutputFilepath(TASK_TYPE):
+    return '../result/' + TASK_TYPE + '_' + str(datetime.datetime.now()).replace(":", '')[0:15] + '.txt'
+
+def getOutput(processor):
+    if (processor.IS_FINAL_OUTPUT):
+        return None
+    else:
+        return open(getOutputFilepath(gl.TASK_TYPE), 'w')
+
 def output(processor):
-    OUTPUT_PATH = '../result/' + gl.TASK_TYPE + '_' + str(datetime.datetime.now()).replace(":", '')[0:15] + '.txt'
+    if (not processor.IS_FINAL_OUTPUT):
+        return 
+    OUTPUT_PATH = getOutputFilepath(gl.TASK_TYPE)
     print OUTPUT_PATH
     processor.outputCount(OUTPUT_PATH)
     
@@ -35,6 +46,8 @@ def getProcessorFromTaskType(TASK_TYPE):
         processor = statistician.SequenceStatistician()
     elif (cmp(TASK_TYPE, "SequenceExctractor")==0):
         processor = extractor.SequenceExtractor()
+    elif (cmp(TASK_TYPE, "SequenceDataExctractor")==0):
+        processor = extractor.SequenceDataExtractor()
     else:
         print "Task type error, no task type '" + TASK_TYPE + "' found"
         exit(1)
@@ -53,6 +66,7 @@ def getComments(dom):
     contents = dom.xpath('//*[@id="comments"]/div/pre[@class="bz_comment_text"]')[1:]
     result = []
     i = 0
+#    print len(authors), len(times), len(contents)
     for time in times:
 #        print time.text.strip()
 #        print authors[i].text_content().strip()

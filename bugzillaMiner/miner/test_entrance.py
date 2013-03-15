@@ -16,27 +16,31 @@ if __name__ == '__main__':
     '''
     starttime = datetime.datetime.now()
 #    src = '/media/DATA/mozilla.bugs/'
-#    src = 'D:\\mozilla.bugs.test\\'
-    src = 'D:\\sample\\'
+    src = 'D:\\mozilla.bugs.test\\'
+#    src = 'D:\\sample\\'
 #    print src
+    
     processor = commonFunc.getProcessorFromTaskType(gl.TASK_TYPE)
+    output = commonFunc.getOutput(processor)
 
     begin = 240000
     end = 252450
-    begin = 248115
-    end = begin + 1
+#    begin = 248115
+#    end = begin + 1
     filecount = 0
     for i in range(begin, end):
  #        print '*' * 40
         
         filename = src + str(i) + '.html'
         
-        if (miner.processFile(filename, processor)):  
+        if (miner.processFile(filename, processor, output)):
             filecount = filecount + 1
             print filename + '\t(' + str(filecount) + ')'
     print processor
     
-    miner.output(processor)
+    commonFunc.output(processor)
+    if (output):
+        output.close()
     endtime = datetime.datetime.now()
     print (endtime - starttime)
     print gl.error_list
