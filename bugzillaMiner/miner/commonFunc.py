@@ -5,6 +5,7 @@ Created on 2013-3-8
 '''
 import datetime
 import statistician
+import extractor
 import lxml.html
 import sys
 import gl
@@ -33,7 +34,7 @@ def getProcessorFromTaskType(TASK_TYPE):
     elif (cmp(TASK_TYPE, "SequenceStatistic")==0):
         processor = statistician.SequenceStatistician()
     elif (cmp(TASK_TYPE, "SequenceExctractor")==0):
-        pass
+        processor = extractor.SequenceExtractor()
     else:
         print "Task type error, no task type '" + TASK_TYPE + "' found"
         exit(1)

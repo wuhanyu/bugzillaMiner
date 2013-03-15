@@ -4,7 +4,7 @@ Created on 2013-3-6
 @author: Simon@itechs
 '''
 
-from statistician import *
+
 from dataobject import *
 from commonFunc import *
 import datetime

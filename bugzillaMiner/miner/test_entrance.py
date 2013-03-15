@@ -3,12 +3,13 @@ Created on 2013-3-6
 
 @author: Simon@itechs
 '''
-from miner import *
+import miner
 import datetime
 import gl
-from commonFunc import *
+import commonFunc
 
 if __name__ == '__main__':
+    gl.TASK_TYPE = "SequenceExctractor"
     gl.DEBUG = True
     '''
     Test script for the miner
@@ -18,24 +19,24 @@ if __name__ == '__main__':
 #    src = 'D:\\mozilla.bugs.test\\'
     src = 'D:\\sample\\'
 #    print src
-    processor = getProcessorFromTaskType(gl.TASK_TYPE)
+    processor = commonFunc.getProcessorFromTaskType(gl.TASK_TYPE)
 
     begin = 240000
     end = 252450
-#    begin = 248115
-#    end = begin + 1
+    begin = 248115
+    end = begin + 1
     filecount = 1
     for i in range(begin, end):
  #        print '*' * 40
         
         filename = src + str(i) + '.html'
         
-        if (processFile(filename, processor)):  
+        if (miner.processFile(filename, processor)):  
             filecount = filecount + 1
             print filename + '\t(' + str(filecount) + ')'
     print processor
     
-    output(processor)
+    miner.output(processor)
     endtime = datetime.datetime.now()
     print (endtime - starttime)
     print gl.error_list

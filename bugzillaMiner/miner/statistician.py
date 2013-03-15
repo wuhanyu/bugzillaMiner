@@ -4,8 +4,9 @@ Created on 2013-3-7
 @author: Simon
 '''
 
-from commonFunc import *
+import commonFunc
 from dateutil.relativedelta import *
+from dataobject import *
 
 class TimeStatistician(object):
     '''
@@ -19,18 +20,18 @@ class TimeStatistician(object):
         pass
         
     def processFile(self, dom, hdom):
-        reportStartTime = getReportStartTime(dom)
+        reportStartTime = commonFunc.getReportStartTime(dom)
     #    print reportStartTime
         self.processRecord(Record(reportStartTime, "reportStart"))
         
-        comments = getComments(dom)
+        comments = commonFunc.getComments(dom)
         for comment in comments:
 #            print comment
             self.processRecord(Record(comment.time, "commentTime"))
             
         pass
         #==================history==================
-        modifications = getModifications(hdom)
+        modifications = commonFunc.getModifications(hdom)
         for modi in modifications:
 #            print str(modi)
             if (modi.time):
@@ -53,7 +54,7 @@ class TimeStatistician(object):
             list.append(dictname + ':\n')
             time = self.beginTime
             while (time < self.endTime):
-                timestr = getTimeStr(time)
+                timestr = commonFunc.getTimeStr(time)
                 if (self.countDict[dictname].has_key(timestr)):
                     list.append(timestr + '\t' + str(self.countDict[dictname][timestr]) + '\n')
                 else:
@@ -76,7 +77,7 @@ class TimeStatistician(object):
         recordtype = record.recordtype
         if (not self.countDict.has_key(recordtype)):
             self.countDict[recordtype] = {}
-        timestr = getTimeStr(record.time)
+        timestr = commonFunc.getTimeStr(record.time)
         if (self.countDict[recordtype].has_key(timestr)):
             self.countDict[recordtype][timestr] = self.countDict[recordtype][timestr] + 1
         else:
@@ -95,7 +96,7 @@ class SequenceStatistician(object):
     def __init__(self):
         pass
     
-    def processFile(self, dom):
+    def processFile(self, dom, hdom):
         pass
     
     def __str__(self):
@@ -109,7 +110,7 @@ class SequenceStatistician(object):
             list.append(dictname + ':\n')
             time = self.beginTime
             while (time < self.endTime):
-                timestr = getTimeStrYear(time)
+                timestr = commonFunc.getTimeStrYear(time)
                 if (self.countDict[dictname].has_key(timestr)):
                     list.append(timestr + '\t' + str(self.countDict[dictname][timestr]) + '\n')
                 else:
