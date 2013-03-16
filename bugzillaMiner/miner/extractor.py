@@ -28,12 +28,14 @@ class SequenceExtractor(object):
         status = None
         for modi in modifications:
             if (cmp(modi.content, "Status") == 0):
-                if (status):
+                if (not status and cmp(modi.remove, "NEW") != 0):
+                    line += "NEW"
+                    status = "NEW"
+                if (status and cmp(modi.remove, status) == 0):
                     line += ' - ' + modi.add
-                elif (cmp(modi.remove, "NEW") == 0):
-                    line += 'NEW - ' + modi.add
                 else:
-                    line += 'NEW - ' + modi.remove + ' - ' + modi.add
+                    line += ' - ' + modi.remove + ' - ' + modi.add
+                status = modi.add
         if (output):
             output.writelines([title + '\t' + line + '\n'])
         pass
@@ -57,7 +59,6 @@ class SequenceDataExtractor(object):
     #    print reportStartTime
         comments = commonFunc.getComments(dom)
         title = commonFunc.getTitle(dom).split(u' – ')[0][4:]
-        
 
         #==================history==================
         modifications = commonFunc.getModifications(hdom)

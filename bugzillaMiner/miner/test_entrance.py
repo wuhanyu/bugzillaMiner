@@ -27,8 +27,8 @@ if __name__ == '__main__':
     commonFunc.initHeader(output, commonFunc.getHeaderFromTaskType(gl.TASK_TYPE))
     begin = 240000
     end = 252450
-    begin = 248115
-    end = begin + 1
+#    begin = 248115
+#    end = begin + 1
     filecount = 0
     for i in range(begin, end):
  #        print '*' * 40
