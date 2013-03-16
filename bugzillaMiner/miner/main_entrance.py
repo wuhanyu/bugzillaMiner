@@ -49,6 +49,7 @@ if __name__ == '__main__':
 #    src = 'D:\\sample\\'
     processor = commonFunc.getProcessorFromTaskType(gl.TASK_TYPE)
     output = commonFunc.getOutput(processor)
+    initHeader(output, getHeaderFromTaskType(gl.TASK_TYPE))
     begin = 000000
     end = 600000
     miners = []

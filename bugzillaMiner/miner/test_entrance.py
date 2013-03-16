@@ -24,7 +24,7 @@ if __name__ == '__main__':
     
     processor = commonFunc.getProcessorFromTaskType(gl.TASK_TYPE)
     output = commonFunc.getOutput(processor)
-
+    commonFunc.initHeader(output, commonFunc.getHeaderFromTaskType(gl.TASK_TYPE))
     begin = 240000
     end = 252450
     begin = 248115

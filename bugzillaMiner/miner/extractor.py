@@ -81,14 +81,14 @@ class SequenceDataExtractor(object):
                     p += 1
                 line += str(p - index + 1) + '\t'
                 index = p
-                line += str(modi.time - time) + '\t'
+                line += str((modi.time - time).days) + '\t'
                 time = modi.time
                 line += str(count - m_index - 1) + '\t'
                 m_index = count
                 line += str(dcount - md_index - 1) + '\t'
                 md_index = dcount
                 dtime = modi.time
-                print line
+#                print line
                 tmplines.append(title + '\t' + line + '\n')
             count += 1
         if (output):

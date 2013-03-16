@@ -6,6 +6,6 @@ Created on 2013-3-12
 error_count = 0
 error_list = []
 filecount = 1
-TASK_TYPE = "SequenceExctractor"
+TASK_TYPE = "SequenceDataExctractor"
 index = 0
 DEBUG = False

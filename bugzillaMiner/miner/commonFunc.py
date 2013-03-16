@@ -53,6 +53,13 @@ def getProcessorFromTaskType(TASK_TYPE):
         exit(1)
     return processor
 
+def getHeaderFromTaskType(TASK_TYPE):
+    
+    if (cmp(TASK_TYPE, "SequenceDataExctractor")==0):
+        return ["CommentGap", "ModiDays", "ModiGap", "UniqueModiGap"]
+    else:
+        return None
+
 def getClearText(tmpstr):
     return tmpstr.strip().replace('\n              ', '; ').replace(' ', '_')
 
@@ -113,3 +120,11 @@ def errorHandle(filepath):
     gl.error_list.append(filepath)
     if (gl.DEBUG):
         raise
+    
+def initHeader(output, lines):
+    if (lines):
+        result = ' \t'
+        if (output):
+            for line in lines:
+                result += line + '\t'
+            output.writelines([result[:-1] + '\n'])
