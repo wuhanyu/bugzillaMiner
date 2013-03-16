@@ -31,7 +31,7 @@ def processFile(filepath, processor, output=None):
     except IOError:
         pass
     except IndexError:
-        print title
+        print title.encode('utf-8').strip()
     except:
         errorHandle(filepath)
         return False
