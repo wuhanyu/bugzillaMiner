@@ -47,8 +47,8 @@ def getProcessorFromTaskType(TASK_TYPE):
         processor = statistician.SequenceStatistician()
     elif (cmp(TASK_TYPE, "SequenceExctractor")==0):
         processor = extractor.SequenceExtractor()
-    elif (cmp(TASK_TYPE, "SequenceDataExctractor")==0):
-        processor = extractor.SequenceDataExtractor()
+    elif (cmp(TASK_TYPE, "TransitionExctractor")==0):
+        processor = extractor.TransitionExtractor()
     else:
         print "Task type error, no task type '" + TASK_TYPE + "' found"
         exit(1)
@@ -56,7 +56,7 @@ def getProcessorFromTaskType(TASK_TYPE):
 
 def getHeaderFromTaskType(TASK_TYPE):
     
-    if (cmp(TASK_TYPE, "SequenceDataExctractor")==0):
+    if (cmp(TASK_TYPE, "TransitionExctractor")==0):
         return ["CommentGap", "ModiDays", "ModiGap", "UniqueModiGap"]
     else:
         return None

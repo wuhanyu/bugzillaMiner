@@ -88,7 +88,7 @@ class SequenceExtractor(object):
         file_object.close()
         return
 
-class SequenceDataExtractor(object):
+class TransitionExtractor(object):
     IS_FINAL_OUTPUT = False
     def __init__(self):
         pass
