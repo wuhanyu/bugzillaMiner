@@ -118,9 +118,10 @@ def getDomOfFile(filepath):
 def errorHandle(filepath):
     print "Unexpected error:", sys.exc_info()
     gl.error_count += 1
-    gl.error_list.append(filepath)
     if (gl.DEBUG):
         raise
+    else:
+        gl.error_list.append(filepath)
     
 def initHeader(output, lines):
     if (lines):
