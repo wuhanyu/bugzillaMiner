@@ -18,8 +18,8 @@ if __name__ == '__main__':
     '''
     starttime = datetime.datetime.now()
 #    src = '/media/DATA/mozilla.bugs/'
-#    src = 'D:\\mozilla.bugs.test\\'
-    src = 'D:\\sample\\'
+    src = 'D:\\mozilla.bugs.test\\'
+#    src = 'D:\\sample\\'
 #    print src
     
     processor = commonFunc.getProcessorFromTaskType(gl.TASK_TYPE)

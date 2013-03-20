@@ -26,13 +26,13 @@ def getOutputFilepath(TASK_TYPE):
     return '../result/' + TASK_TYPE + '_' + str(datetime.datetime.now()).replace(":", '')[0:15] + '.txt'
 
 def getOutput(processor):
-    if (processor.IS_FINAL_OUTPUT):
+    if (processor.IS_FINAL_OUTPUT or gl.DEBUG):
         return None
     else:
         return open(getOutputFilepath(gl.TASK_TYPE), 'w')
 
 def output(processor):
-    if (not processor.IS_FINAL_OUTPUT):
+    if (not processor.IS_FINAL_OUTPUT or gl.DEBUG):
         return 
     OUTPUT_PATH = getOutputFilepath(gl.TASK_TYPE)
     print OUTPUT_PATH

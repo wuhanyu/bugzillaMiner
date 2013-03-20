@@ -7,6 +7,7 @@ Created on 2013-3-12
 '''
 
 import commonFunc
+import gl
 from dateutil.relativedelta import *
 from dataobject import *
 
@@ -15,15 +16,7 @@ class SequenceExtractor(object):
     def __init__(self):
         pass
     
-    def processFile(self, dom, hdom, output=None):
-        reportStartTime = commonFunc.getReportStartTime(dom)
-    #    print reportStartTime
-        comments = commonFunc.getComments(dom)
-        title = commonFunc.getTitle(dom).split(u' – ')[0][4:]
-        
-
-        #==================history==================
-        modifications = commonFunc.getModifications(hdom)
+    def getSequence(self, modifications):
         line = ''
         status = None
         for modi in modifications:
@@ -32,10 +25,56 @@ class SequenceExtractor(object):
                     line += "NEW"
                     status = "NEW"
                 if (status and cmp(modi.remove, status) == 0):
-                    line += ' - ' + modi.add
+                    line += '-' + modi.add
                 else:
-                    line += ' - ' + modi.remove + ' - ' + modi.add
+                    line += '-' + modi.remove + '-' + modi.add
                 status = modi.add
+
+        return line
+    
+    def getCountBeforeTime(self, list, time, isUnique=False):
+        count = 0
+        if (not isUnique):
+            for item in list:
+                if (item.time < time): count += 1
+                else: break
+        else:
+            timeindex = list[0].time
+            count = 1
+            for item in list:
+                if (item.time < time):
+                    if (item.time > timeindex):
+                        count += 1
+                        timeindex = item.time
+                else:
+                    break
+        return count
+    
+    def processFile(self, dom, hdom, output=None):
+        reportStartTime = commonFunc.getReportStartTime(dom)
+    #    print reportStartTime
+        comments = commonFunc.getComments(dom)
+        title = commonFunc.getTitle(dom).split(u' – ')[0][4:]
+        
+        #==================history==================
+        modifications = commonFunc.getModifications(hdom)
+        
+        line = self.getSequence(modifications)
+        if (len(line) > 0):
+            reportStartTime = commonFunc.getReportStartTime(dom)
+            start_time = parse(reportStartTime)
+            index = -1
+            while (cmp(modifications[index].content, "Status") != 0):
+                index -= 1
+            end_time = modifications[index].time
+            elapsed_days = (end_time - start_time).days
+            elapsed_comments = self.getCountBeforeTime(comments, end_time)
+            elapsed_modifications = self.getCountBeforeTime(modifications, end_time)
+            elapsed_unique_modifications = self.getCountBeforeTime(modifications, end_time, True)
+            line += '\t' + str(elapsed_days) + '\t' + str(elapsed_comments)
+            line += '\t' + str(elapsed_modifications)
+            line += '\t' + str(elapsed_unique_modifications)
+        if (gl.DEBUG): print line
         if (output):
             output.writelines([title + '\t' + line + '\n'])
         pass
