@@ -28,7 +28,7 @@ class SequenceExtractor(object):
         status = None
         for modi in modifications:
             if (cmp(modi.content, "Status") == 0):
-                if (not status and cmp(modi.remove, "NEW") != 0):
+                if (not status):
                     line += "NEW"
                     status = "NEW"
                 if (status and cmp(modi.remove, status) == 0):

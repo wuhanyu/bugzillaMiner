@@ -39,6 +39,7 @@ def output(processor):
     processor.outputCount(OUTPUT_PATH)
     
 def getProcessorFromTaskType(TASK_TYPE):
+    print TASK_TYPE
     processor = None
     if (cmp(TASK_TYPE, "TimeStatistic")==0):
         processor = statistician.TimeStatistician()
