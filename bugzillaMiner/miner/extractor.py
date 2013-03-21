@@ -29,7 +29,16 @@ class SequenceExtractor(object):
                 else:
                     line += '-' + modi.remove + '-' + modi.add
                 status = modi.add
-
+        flag = True
+        for modi in reversed(modifications):
+            if (cmp(modi.content, "Resolution") == 0):
+                if (modi.add):
+                    line += ":" + modi.add
+                else:
+                    line += ":None"
+                flag = False
+                break
+        if (flag): line += ':None'
         return line
     
     def getCountBeforeTime(self, list, time, isUnique=False):
@@ -63,10 +72,12 @@ class SequenceExtractor(object):
         if (len(line) > 0):
             reportStartTime = commonFunc.getReportStartTime(dom)
             start_time = parse(reportStartTime)
-            index = -1
-            while (cmp(modifications[index].content, "Status") != 0):
-                index -= 1
-            end_time = modifications[index].time
+            end_time = None
+            for modi in reversed(modifications):
+                if (cmp(modi.content, "Status") == 0):
+                    end_time = modi.time
+                    break
+            if (not end_time): return
             elapsed_days = (end_time - start_time).days
             elapsed_comments = self.getCountBeforeTime(comments, end_time)
             elapsed_modifications = self.getCountBeforeTime(modifications, end_time)

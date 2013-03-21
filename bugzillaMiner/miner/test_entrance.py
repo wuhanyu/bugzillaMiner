@@ -19,7 +19,7 @@ if __name__ == '__main__':
     starttime = datetime.datetime.now()
 #    src = '/media/DATA/mozilla.bugs/'
     src = 'D:\\mozilla.bugs.test\\'
-#    src = 'D:\\sample\\'
+#    src = 'D:\\s/ample\\'
 #    print src
     
     processor = commonFunc.getProcessorFromTaskType(gl.TASK_TYPE)
@@ -45,4 +45,5 @@ if __name__ == '__main__':
         output.close()
     endtime = datetime.datetime.now()
     print (endtime - starttime)
+    print gl.error_count
     print gl.error_list

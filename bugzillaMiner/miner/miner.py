@@ -31,7 +31,9 @@ def processFile(filepath, processor, output=None):
     except IOError:
         pass
     except IndexError:
-        print title.encode('utf-8').strip()
+        stitle = title.encode('utf-8').strip()
+        print stitle
+        if (gl.DEBUG and cmp(stitle, "Access Denied") != 0): raise
     except:
         errorHandle(filepath)
         return False

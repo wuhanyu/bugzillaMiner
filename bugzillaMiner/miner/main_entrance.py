@@ -45,6 +45,7 @@ if __name__ == '__main__':
     '''
     starttime = datetime.datetime.now()
     src = '/media/DATA/mozilla.bugs/'
+#    src = 'D:\\mozilla.bugs\\'
 #    src = 'D:\\mozilla.bugs.test\\'
 #    src = 'D:\\sample\\'
     processor = commonFunc.getProcessorFromTaskType(gl.TASK_TYPE)
