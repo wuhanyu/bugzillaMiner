@@ -104,7 +104,6 @@ def runApriori(data_iter, minSupport, minConfidence):
                     if (len(remain) > 0):
                         support = getSupport(item)
                         confidence = support / getSupport(remain)
-                        print item, remain, element
                         if confidence >= minConfidence:
                             toRetRules.append(((tuple(remain), tuple(element)),
                                                confidence, support))
@@ -117,8 +116,13 @@ def printResults(items, rules):
         print "item: %s , %.3f" % (str(item), support)
     print "\n------------------------ RULES:"
     rules = reversed(sorted(sorted(rules, key=lambda element : element[2]), key=lambda element : element[1]))
+    resultCount = {}
     for rule, confidence, support in rules:
         pre, post = rule
+        if (not resultCount.has_key(post)):
+            resultCount[post] = 0
+        resultCount[post] += 1
+        if (resultCount[post]) > 3: continue
         print "Rule: %s ==> %s , Support: %.3f, Confidence: %.3f" % (str(pre)[:-2] + ")", str(post)[1:-2], support, confidence)
 
 

@@ -57,7 +57,7 @@ def getProcessorFromTaskType(TASK_TYPE):
 def getHeaderFromTaskType(TASK_TYPE):
     
     if (cmp(TASK_TYPE, "TransitionExctractor")==0):
-        return ["CommentGap", "ModiDays", "ModiGap", "UniqueModiGap"]
+        return ["ID", "Transition", "CommentGap", "ModiDays", "ModiGap", "UniqueModiGap"]
     else:
         return None
 
