@@ -112,12 +112,13 @@ class TransitionExtractor(object):
 
         #==================history==================
         modifications = commonFunc.getModifications(hdom)
-        index = 0
+        c_index = 0
         time = parse(reportStartTime)
         m_index = 0
         count = 1
         md_index = 0
         dcount = 1
+        if (len(modifications) <= 0): return
         dtime = modifications[0].time
         tmplines = []
         for modi in modifications:
@@ -126,12 +127,24 @@ class TransitionExtractor(object):
                 dtime = modi.time
             if (cmp(modi.content, "Status") == 0):
                 line = ''
-                line += modi.remove + '-' + modi.add + '\t'
-                p = index 
+                resolution = 'NONE'
+                p = count - 1
+                while (p >= 0 and modifications[p].time == modi.time):
+                    if (cmp(modifications[p].content, "Resolution") == 0 and modifications[p].add):
+                        resolution = modifications[p].add
+                    p -= 1
+                p = count + 1
+                while (p < len(modifications) and modifications[p].time == modi.time):
+                    if (cmp(modifications[p].content, "Resolution") == 0 and modifications[p].add):
+                        resolution = modifications[p].add
+                    p += 1
+                
+                line += modi.remove + '-' + modi.add + ':' + resolution + '\t'
+                p = c_index 
                 while (len(comments) > 0 and comments[p].time <= modi.time and p < len(comments) - 1):
                     p += 1
-                line += str(p - index + 1) + '\t'
-                index = p
+                line += str(p - c_index + 1) + '\t'
+                c_index = p
                 line += str((modi.time - time).days) + '\t'
                 time = modi.time
                 line += str(count - m_index - 1) + '\t'
@@ -139,7 +152,8 @@ class TransitionExtractor(object):
                 line += str(dcount - md_index - 1) + '\t'
                 md_index = dcount
                 dtime = modi.time
-#                print line
+                
+                if (gl.DEBUG): print line
                 tmplines.append(title + '\t' + line + '\n')
             count += 1
         if (output):
