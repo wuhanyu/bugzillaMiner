@@ -6,7 +6,8 @@ Created on 2013-3-6
 
 
 from dataobject import *
-from commonFunc import *
+import gl
+import commonFunc
 import datetime
 import time
 
@@ -17,10 +18,10 @@ from dateutil.parser import parse
 def processFile(filepath, processor, output=None):
     #print filepath
     try:
-        history_filepath = gethistoryName(filepath)
-        dom = getDomOfFile(filepath)
-        hdom = getDomOfFile(history_filepath)
-        title = getTitle(dom)
+        history_filepath = commonFunc.gethistoryName(filepath)
+        dom = commonFunc.getDomOfFile(filepath)
+        hdom = commonFunc.getDomOfFile(history_filepath)
+        title = commonFunc.getTitle(dom)
         
     #    print title
         if (output):
@@ -35,5 +36,5 @@ def processFile(filepath, processor, output=None):
         print stitle
         if (gl.DEBUG and cmp(stitle, "Access Denied") != 0): raise
     except:
-        errorHandle(filepath)
+        commonFunc.errorHandle(filepath)
         return False

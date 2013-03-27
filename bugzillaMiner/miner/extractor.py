@@ -8,6 +8,7 @@ Created on 2013-3-12
 
 import commonFunc
 import gl
+from dateutil.parser import parse
 from dateutil.relativedelta import *
 from dataobject import *
 

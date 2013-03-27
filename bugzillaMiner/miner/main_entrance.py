@@ -10,6 +10,7 @@ import gl
 import commonFunc
 import datetime
 import threading
+import time
 
 class Miner(threading.Thread):
     '''
@@ -34,7 +35,7 @@ class Miner(threading.Thread):
             if (gl.filecount % 100 == 0):
                 print filename + '    (' + str(gl.filecount) + ')   ' + str(datetime.datetime.now())
             
-            if (processFile(filename, self.processor, self.output)):
+            if (miner.processFile(filename, self.processor, self.output)):
                 pass    
                 gl.filecount = gl.filecount + 1
            
@@ -50,7 +51,7 @@ if __name__ == '__main__':
 #    src = 'D:\\sample\\'
     processor = commonFunc.getProcessorFromTaskType(gl.TASK_TYPE)
     output = commonFunc.getOutput(processor)
-    initHeader(output, getHeaderFromTaskType(gl.TASK_TYPE))
+    commonFunc.initHeader(output, commonFunc.getHeaderFromTaskType(gl.TASK_TYPE))
     begin = 000000
     end = 600000
     miners = []
