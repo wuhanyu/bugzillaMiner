@@ -11,15 +11,15 @@ import gl
 import commonFunc
 
 if __name__ == '__main__':
-    gl.TASK_TYPE = "TransitionExctractor"
+    gl.TASK_TYPE = "TimeStatistic"
     gl.DEBUG = False
     '''
     Test script for the miner
     '''
     starttime = datetime.datetime.now()
 #    src = '/media/DATA/mozilla.bugs/'
-    src = 'D:\\mozilla.bugs.test\\'
-#    src = 'D:\\s/ample\\'
+#    src = 'D:\\mozilla.bugs.test\\'
+    src = 'D:\\sample\\'
 #    print src
     
     processor = commonFunc.getProcessorFromTaskType(gl.TASK_TYPE)

@@ -55,7 +55,8 @@ def getProcessorFromTaskType(TASK_TYPE):
     return processor
 
 def getHeaderFromTaskType(TASK_TYPE):
-    
+    #no header all the time
+    return None
     if (cmp(TASK_TYPE, "TransitionExctractor")==0):
         return ["ID", "Transition", "CommentGap", "ModiDays", "ModiGap", "UniqueModiGap"]
     else:
