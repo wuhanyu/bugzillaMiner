@@ -3,10 +3,26 @@ Created on 2013-5-3
 
 @author: Simon@itechs
 '''
-edays = [["Short", 0, 4],
+mf_edays = [["Short", 0, 4],
          ["Middle", 0, 0, 0, 4, 10, 20],
          ["Long", 0, 0, 10, 20]
          ]
+
+mf_comments = [["Few", 0, 1],
+         ["Middle", 0, 0, 0, 1, 3, 6],
+         ["Many", 0, 0, 3, 6]
+         ]
+
+mf_modis = [["Few", 0, 1],
+         ["Middle", 0, 0, 0, 1, 3, 6],
+         ["Many", 0, 0, 3, 6]
+         ]
+
+labels = [["ElapseDays", mf_edays],
+          ["CommentNum", mf_comments],
+          ["ModiNum", mf_modis],
+          ["UniModiNum", mf_modis]
+          ]
 
 def getMembershipValue(value, memfunc):
     count = 1
@@ -22,10 +38,10 @@ def getMembershipValue(value, memfunc):
         end = (begin + 1) % 2
         return float(begin) + float((end - begin) * (value - memfunc[count - 1])) / (memfunc[count] - memfunc[count - 1])
     
-def getMembershipPair(value, memfuncs):
+def getMembershipPair(label, value, memfuncs):
     result = ""
     for memfunc in memfuncs:
         tvalue = getMembershipValue(value, memfunc)
         if (tvalue > 0):
-            result += "<%s, %.3f>" % (memfunc[0], tvalue)
+            result += "<%sis%s, %.3f> " % (label, memfunc[0], tvalue)
     return result

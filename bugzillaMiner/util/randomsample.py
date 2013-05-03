@@ -25,6 +25,8 @@ if __name__ == '__main__':
             i += 1
             fout.write(line)
         count += 1
+    fin.close()
+    fout.close()
     
     
         
