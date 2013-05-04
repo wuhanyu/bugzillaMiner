@@ -18,7 +18,8 @@ mf_modis = [["Few", 0, 1],
          ["Many", 0, 0, 5, 6]
          ]
 
-labels = [["CommentNum", mf_comments],
+labels = [["Transition", None],
+          ["CommentNum", mf_comments],
           ["ElapseDays", mf_edays],          
           ["ModiNum", mf_modis],
           ["UniModiNum", mf_modis]
@@ -40,6 +41,9 @@ def getMembershipValue(value, memfunc):
     
 def getMembershipPair(label, value, memfuncs):
     result = ""
+    if (memfuncs == None):
+        return "<%s_%s,%.3f> " % (value, label, 1)
+    value = int(value)
     for memfunc in memfuncs:
         tvalue = getMembershipValue(value, memfunc)
         if (tvalue > 0):
