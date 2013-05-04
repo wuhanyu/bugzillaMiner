@@ -18,8 +18,8 @@ mf_modis = [["Few", 0, 1],
          ["Many", 0, 0, 3, 6]
          ]
 
-labels = [["ElapseDays", mf_edays],
-          ["CommentNum", mf_comments],
+labels = [["CommentNum", mf_comments],
+          ["ElapseDays", mf_edays],          
           ["ModiNum", mf_modis],
           ["UniModiNum", mf_modis]
           ]
