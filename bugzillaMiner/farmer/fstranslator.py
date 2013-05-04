@@ -6,7 +6,8 @@ Created on 2013-5-2
 import memfunc
 
 if __name__ == '__main__':
-    fin = open('../result/TransitionExctractor_2013-05-02 1542.txt', 'r')
+    finname = '../result/TransitionExctractor_2013-05-02 1542.txt'
+    fin = open(finname, 'r')
     foutname = fin.name.replace(".txt", "-fs.txt")
     fout = open(foutname, 'w')
     for line in fin:

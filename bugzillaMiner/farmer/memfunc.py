@@ -4,18 +4,18 @@ Created on 2013-5-3
 @author: Simon@itechs
 '''
 mf_edays = [["Short", 0, 4],
-         ["Middle", 0, 0, 0, 4, 10, 20],
-         ["Long", 0, 0, 10, 20]
+         ["Middle", 0, 0, 0, 4, 15, 20],
+         ["Long", 0, 0, 15, 20]
          ]
 
-mf_comments = [["Few", 0, 1],
-         ["Middle", 0, 0, 0, 1, 3, 6],
-         ["Many", 0, 0, 3, 6]
+mf_comments = [["Few", 0, 2],
+         ["Middle", 0, 0, 0, 2, 5, 6],
+         ["Many", 0, 0, 5, 6]
          ]
 
 mf_modis = [["Few", 0, 1],
-         ["Middle", 0, 0, 0, 1, 3, 6],
-         ["Many", 0, 0, 3, 6]
+         ["Middle", 0, 0, 0, 1, 5, 6],
+         ["Many", 0, 0, 5, 6]
          ]
 
 labels = [["CommentNum", mf_comments],
@@ -43,5 +43,5 @@ def getMembershipPair(label, value, memfuncs):
     for memfunc in memfuncs:
         tvalue = getMembershipValue(value, memfunc)
         if (tvalue > 0):
-            result += "<%sis%s, %.3f> " % (label, memfunc[0], tvalue)
+            result += "<%s_%s,%.3f> " % (memfunc[0], label, tvalue)
     return result
