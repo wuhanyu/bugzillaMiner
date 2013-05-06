@@ -9,13 +9,13 @@ mf_edays = [["Short", 0, 4],
          ]
 
 mf_comments = [["Few", 0, 2],
-         ["Middle", 0, 0, 0, 2, 5, 6],
+         ["Middle", 0, 0, 0, 2, 5, 10],
          ["Many", 0, 0, 5, 6]
          ]
 
 mf_modis = [["Few", 0, 1],
-         ["Middle", 0, 0, 0, 1, 5, 6],
-         ["Many", 0, 0, 5, 6]
+         ["Middle", 0, 0, 0, 1, 5, 10],
+         ["Many", 0, 0, 5, 10]
          ]
 
 labels = [["Transition", None],
@@ -29,7 +29,7 @@ def getMembershipValue(value, memfunc):
     count = 1
     isFlat = True
     begin = 1
-    while (count < len(memfunc) and value > memfunc[count]):
+    while (count < len(memfunc) and value >= memfunc[count]):
         count += 1
         isFlat = not isFlat
         if (count % 2 != 0): begin = (begin + 1) % 2
@@ -42,10 +42,10 @@ def getMembershipValue(value, memfunc):
 def getMembershipPair(label, value, memfuncs):
     result = ""
     if (memfuncs == None):
-        return "<%s_%s,%.3f> " % (value, label, 1)
+        return "<%s_%s,%.2f> " % (value, label, 1)
     value = int(value)
     for memfunc in memfuncs:
         tvalue = getMembershipValue(value, memfunc)
         if (tvalue > 0):
-            result += "<%s_%s,%.3f> " % (memfunc[0], label, tvalue)
+            result += "<%s_%s,%.2f> " % (memfunc[0], label, tvalue)
     return result

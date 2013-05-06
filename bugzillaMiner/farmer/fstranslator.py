@@ -6,11 +6,18 @@ Created on 2013-5-2
 import memfunc
 
 if __name__ == '__main__':
-    finname = '../result/TransitionExctractor_2013-05-02 1542.txt'
+    finname = '../result/SequenceDataExctractor_2013-03-16 1423.txt'
+    fin = open(finname, 'r')
+    data = fin.read()
+    fin.close()
+    linecount = data.count('\n')
     fin = open(finname, 'r')
     foutname = fin.name.replace(".txt", "-fs.txt")
     fout = open(foutname, 'w')
+    lcount = 0
     for line in fin:
+        lcount += 1
+        if (lcount % 10000 == 0): print "%d lines processed(%.1f%%, %d)" % (lcount, float(lcount)/ linecount * 100, linecount)
         tmp = line.split("\t")
         outputline = ''
         tmp = tmp[1:6]
@@ -19,7 +26,7 @@ if __name__ == '__main__':
         fout.write(outputline[:-1] + "\n")
     fin.close()
     fout.close()
-    
+    print "member finish"
     #schema breaker
     labeldict = {}
     indexdict = {}
@@ -29,7 +36,10 @@ if __name__ == '__main__':
     foutname = fin.name.replace(".txt", "-i.txt")
     fschemaoutname = fin.name.replace(".txt", "-i.schema")
     fout = open(foutname, 'w')
+    lcount = 0
     for line in fin:
+        lcount += 1
+        if (lcount % 10000 == 0): print "%d lines processed(%.1f%%, %d)" % (lcount, float(lcount)/ linecount * 100, linecount)
         newline = ''
         list = []
         tokens = line[1:-2].split("> <")
@@ -52,3 +62,4 @@ if __name__ == '__main__':
         fout.write(indexdict[i] + "\n")
     fout.close()
     fin.close()
+    print "finish"
