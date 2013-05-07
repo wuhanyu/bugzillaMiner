@@ -3,26 +3,31 @@ Created on 2013-5-3
 
 @author: Simon@itechs
 '''
-mf_edays = [["Short", 0, 4],
-         ["Middle", 0, 0, 0, 4, 15, 20],
-         ["Long", 0, 0, 15, 20]
+mf_edays = [["Short", 0, 2],
+         ["Middle", 0, 0, 0, 2, 200, 218],
+         ["Long", 0, 0, 200, 218]
          ]
 
 mf_comments = [["Few", 0, 2],
-         ["Middle", 0, 0, 0, 2, 5, 10],
-         ["Many", 0, 0, 5, 6]
+         ["Middle", 0, 0, 0, 2, 6, 8],
+         ["Many", 0, 0, 6, 8]
          ]
 
-mf_modis = [["Few", 0, 1],
-         ["Middle", 0, 0, 0, 1, 5, 10],
-         ["Many", 0, 0, 5, 10]
+mf_modis = [["Few", 1, 3],
+         ["Middle", 0, 0, 1, 3, 8, 12],
+         ["Many", 0, 0, 8, 12]
+         ]
+
+mf_umodis = [["Few", 0, 2],
+         ["Middle", 0, 0, 0, 2, 5, 7],
+         ["Many", 0, 0, 5, 7]
          ]
 
 labels = [["Transition", None],
           ["CommentNum", mf_comments],
           ["ElapseDays", mf_edays],          
           ["ModiNum", mf_modis],
-          ["UniModiNum", mf_modis]
+          ["UniModiNum", mf_umodis]
           ]
 
 def getMembershipValue(value, memfunc):
