@@ -23,7 +23,7 @@ def gethistoryName(filename):
     return filename[:-5] + '-history.html'
 
 def getOutputFilepath(TASK_TYPE):
-    return '../result/' + TASK_TYPE + '_' + str(datetime.datetime.now()).replace(":", '')[0:15] + '.txt'
+    return '../result/' + TASK_TYPE + '_' + str(datetime.datetime.now()).replace(":", '').replace(" ", '_')[0:13] + '.txt'
 
 def getOutput(processor):
     if (processor.IS_FINAL_OUTPUT or gl.DEBUG):
@@ -47,6 +47,8 @@ def getProcessorFromTaskType(TASK_TYPE):
         processor = statistician.SequenceStatistician()
     elif (cmp(TASK_TYPE, "SequenceExctractor")==0):
         processor = extractor.SequenceExtractor()
+    elif (cmp(TASK_TYPE, "NewSequenceExctractor")==0):
+        processor = extractor.NewSequenceExtractor()
     elif (cmp(TASK_TYPE, "TransitionExctractor")==0):
         processor = extractor.TransitionExtractor()
     else:
