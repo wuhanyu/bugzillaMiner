@@ -3,24 +3,24 @@ Created on 2013-5-3
 
 @author: Simon@itechs
 '''
-mf_edays = [["Short", 0, 2],
-         ["Middle", 0, 0, 0, 2, 200, 218],
-         ["Long", 0, 0, 200, 218]
+mf_edays = [["Short", 0, 1],
+         ["Middle", 0, 0, 0, 1, 50, 58],
+         ["Long", 0, 0, 50, 58]
          ]
 
-mf_comments = [["Few", 0, 2],
-         ["Middle", 0, 0, 0, 2, 6, 8],
-         ["Many", 0, 0, 6, 8]
+mf_comments = [["Few", 1, 2],
+         ["Middle", 0, 0, 1, 2, 4, 6],
+         ["Many", 0, 0, 4, 6]
          ]
 
-mf_modis = [["Few", 1, 3],
-         ["Middle", 0, 0, 1, 3, 8, 12],
-         ["Many", 0, 0, 8, 12]
+mf_modis = [["Few", 1, 2],
+         ["Middle", 0, 0, 1, 2, 3, 5],
+         ["Many", 0, 0, 3, 5]
          ]
 
-mf_umodis = [["Few", 0, 2],
-         ["Middle", 0, 0, 0, 2, 5, 7],
-         ["Many", 0, 0, 5, 7]
+mf_umodis = [["Few", 0, 1],
+         ["Middle", 0, 0, 0, 1, 1, 3],
+         ["Many", 0, 0, 1, 3]
          ]
 
 labels = [["Transition", None],
