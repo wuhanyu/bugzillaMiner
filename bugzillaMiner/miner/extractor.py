@@ -173,8 +173,6 @@ class TransitionExtractor(object):
 class NewSequenceExtractor(object):
     IS_FINAL_OUTPUT = False
     startTime = None
-    reporterDict = {}
-    reporterFixDict = {}
     def __init__(self):
         pass
     
@@ -222,11 +220,11 @@ class NewSequenceExtractor(object):
         return count
     
     def getReputation(self, reporter, resolution):
-        if (not self.reporterDict.has_key(reporter)): self.reporterDict[reporter] = 0
-        if (not self.reporterFixDict.has_key(reporter)): self.reporterFixDict[reporter] = 0
-        self.reporterDict[reporter] += 1
-        if (cmp(resolution, "FIXED") == 0): self.reporterFixDict[reporter] += 1
-        return float(self.reporterFixDict[reporter]) / (self.reporterDict[reporter] + 1)
+        if (not gl.reporterDict.has_key(reporter)): gl.reporterDict[reporter] = 0
+        if (not gl.reporterFixDict.has_key(reporter)): gl.reporterFixDict[reporter] = 0
+        gl.reporterDict[reporter] += 1
+        if (cmp(resolution, "FIXED") == 0): gl.reporterFixDict[reporter] += 1
+        return float(gl.reporterFixDict[reporter]) / (gl.reporterDict[reporter] + 1)
     
     def getFromStarttimeDays(self, starttime):
         starttime = parse(starttime)

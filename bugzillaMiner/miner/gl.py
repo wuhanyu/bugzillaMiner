@@ -17,3 +17,5 @@ TASK_TYPE = "TransitionExctractor"
 index = 0
 DEBUG = False
 BUG_SERVERITY = {"blocker":7, "critical":6, "major":5, "normal":4, "minor":3, "trivial":2, "enhancement":1}
+reporterDict = {}
+reporterFixDict = {}
