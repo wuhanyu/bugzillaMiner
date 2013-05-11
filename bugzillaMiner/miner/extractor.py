@@ -194,10 +194,10 @@ class NewSequenceExtractor(object):
                 if (modi.add):
                     resolution = modi.add
                 else:
-                    resolution = "None"
+                    resolution = "NONE"
                 flag = False
                 break
-        if (flag): resolution = 'None'
+        if (flag): resolution = 'NONE'
         return line,resolution
     
     def getCountBeforeTime(self, list, time, isUnique=False):
@@ -229,6 +229,7 @@ class NewSequenceExtractor(object):
         seq, resolution = self.getSequence(modifications)
         attachnumber = commonFunc.getAttachsNumber(dom)
         developernumber = commonFunc.getCCNumber(dom)
+        severity = commonFunc.getBugSeverity(dom)
         line = seq + '\t' + resolution
         if (len(line) > 0):
             reportStartTime = commonFunc.getReportStartTime(dom)
@@ -248,6 +249,7 @@ class NewSequenceExtractor(object):
             line += '\t' + str(elapsed_unique_modifications)
             line += '\t' + str(attachnumber)
             line += '\t' + str(developernumber)
+            line += '\t' + str(severity)
         if (gl.DEBUG): print line
         if (output):
             output.writelines([title + '\t' + line + '\n'])

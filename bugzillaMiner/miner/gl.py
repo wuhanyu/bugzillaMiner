@@ -16,3 +16,4 @@ TASK_TYPE = "TransitionExctractor"
 #    elif (cmp(TASK_TYPE, "TransitionExctractor")==0):
 index = 0
 DEBUG = False
+BUG_SERVERITY = {"blocker":7, "critical":6, "major":5, "normal":4, "minor":3, "trivial":2, "enhancement":1}
