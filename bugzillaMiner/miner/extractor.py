@@ -172,6 +172,7 @@ class TransitionExtractor(object):
     
 class NewSequenceExtractor(object):
     IS_FINAL_OUTPUT = False
+    startTime = None
     reporterDict = {}
     reporterFixDict = {}
     def __init__(self):
@@ -227,8 +228,13 @@ class NewSequenceExtractor(object):
         if (cmp(resolution, "FIXED") == 0): self.reporterFixDict[reporter] += 1
         return float(self.reporterFixDict[reporter]) / (self.reporterDict[reporter] + 1)
     
+    def getFromStarttimeDays(self, starttime):
+        starttime = parse(starttime)
+        return (starttime - self.startTime).days
+    
     def processFile(self, dom, hdom, output=None):
         reportStartTime = commonFunc.getReportStartTime(dom)
+        if (self.startTime == None): self.startTime = parse(reportStartTime)
     #    print reportStartTime
         comments = commonFunc.getComments(dom)
         title = commonFunc.getTitle(dom).split(u' – ')[0][4:]
@@ -243,6 +249,7 @@ class NewSequenceExtractor(object):
         reporter = commonFunc.getReporter(dom)
         reputation = self.getReputation(reporter, resolution)
         severity = commonFunc.getBugSeverity(dom)
+        fsdays = self.getFromStarttimeDays(reportStartTime)
         line = seq + '\t' + resolution
         if (len(line) > 0):
             reportStartTime = commonFunc.getReportStartTime(dom)
@@ -266,6 +273,7 @@ class NewSequenceExtractor(object):
             line += '\t' + str(dependencynumber)
             line += '\t' + str(blocknumber)
             line += '\t' + ("%.3f" % reputation)
+            line += '\t' + str(fsdays)
         if (gl.DEBUG): print line
         if (output):
             output.writelines([title + '\t' + line + '\n'])
