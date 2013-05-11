@@ -118,11 +118,13 @@ def getCCNumber(dom):
     return result
 
 def getBugSeverity(dom):
-    item = dom.xpath('//span[@id="votes_container"]')[0].getparent()
+    target = dom.xpath('//label[@for="priority"]')
+    item = target[0].getparent().getparent().getchildren()[1]
     result = gl.BUG_SERVERITY[item.text.replace("--", "").strip().split(" ")[-1]]
     return result
 
 def getDependencyNum(dom):
+    target = dom.xpath('//span[@id="votes_container"]')
     items = dom.xpath('//span[@id="dependson_input_area"]')[0].getparent().xpath(".//a")
     result = len(items)
     return result  

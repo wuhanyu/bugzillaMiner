@@ -6,7 +6,7 @@ Created on 2013-3-12
 error_count = 0
 error_list = []
 filecount = 1
-TASK_TYPE = "TransitionExctractor"
+TASK_TYPE = "NewSequenceExctractor"
 #    if (cmp(TASK_TYPE, "TimeStatistic")==0):
 #        processor = statistician.TimeStatistician()
 #    elif (cmp(TASK_TYPE, "SequenceStatistic")==0):

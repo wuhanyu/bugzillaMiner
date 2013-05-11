@@ -35,18 +35,18 @@ class Miner(threading.Thread):
             if (gl.filecount % 100 == 0):
                 print filename + '    (' + str(gl.filecount) + ')   ' + str(datetime.datetime.now())
             
-            if (miner.processFile(filename, self.processor, self.output)):
+            if (processFile(filename, self.processor, self.output)):
                 pass    
                 gl.filecount = gl.filecount + 1
            
 if __name__ == '__main__':
-    gl.DEBUG = False
+    gl.DEBUG = True
     '''
     Main script for the miner, optimized by multi-threading tech
     '''
     starttime = datetime.datetime.now()
-    src = '/media/DATA/mozilla.bugs/'
-#    src = 'D:\\mozilla.bugs\\'
+#    src = '/media/DATA/mozilla.bugs/'
+    src = 'D:\\mozilla.bugs\\'
 #    src = 'D:\\mozilla.bugs.test\\'
 #    src = 'D:\\sample\\'
     processor = commonFunc.getProcessorFromTaskType(gl.TASK_TYPE)
@@ -54,6 +54,8 @@ if __name__ == '__main__':
     commonFunc.initHeader(output, commonFunc.getHeaderFromTaskType(gl.TASK_TYPE))
     begin = 000000
     end = 600000
+#    begin = 240000
+#    end = 252450
     miners = []
     N = 16
     gl.index = begin
