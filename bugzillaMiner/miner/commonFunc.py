@@ -120,10 +120,17 @@ def getCCNumber(dom):
 def getBugSeverity(dom):
     item = dom.xpath('//span[@id="votes_container"]')[0].getparent()
     result = gl.BUG_SERVERITY[item.text.replace("--", "").strip().split(" ")[-1]]
-    
-#    result = len(items)
-#    print result
     return result
+
+def getDependencyNum(dom):
+    items = dom.xpath('//span[@id="dependson_input_area"]')[0].getparent().xpath(".//a")
+    result = len(items)
+    return result  
+
+def getBlockNum(dom):
+    items = dom.xpath('//span[@id="blocked_input_area"]')[0].getparent().xpath(".//a")
+    result = len(items)
+    return result     
     
 def getTitle(dom):
     title = dom.xpath('//title')[0].text

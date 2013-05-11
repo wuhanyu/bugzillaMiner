@@ -32,7 +32,7 @@ if __name__ == '__main__':
     filecount = 0
     for i in range(begin, end):
  #        print '*' * 40
-#        i = 251444
+#        i = 251446
         filename = src + str(i) + '.html'
         
         if (miner.processFile(filename, processor, output)):

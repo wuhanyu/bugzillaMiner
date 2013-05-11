@@ -229,6 +229,8 @@ class NewSequenceExtractor(object):
         seq, resolution = self.getSequence(modifications)
         attachnumber = commonFunc.getAttachsNumber(dom)
         developernumber = commonFunc.getCCNumber(dom)
+        dependencynumber = commonFunc.getDependencyNum(dom)
+        blocknumber = commonFunc.getBlockNum(dom)
         severity = commonFunc.getBugSeverity(dom)
         line = seq + '\t' + resolution
         if (len(line) > 0):
@@ -250,6 +252,8 @@ class NewSequenceExtractor(object):
             line += '\t' + str(attachnumber)
             line += '\t' + str(developernumber)
             line += '\t' + str(severity)
+            line += '\t' + str(dependencynumber)
+            line += '\t' + str(blocknumber)
         if (gl.DEBUG): print line
         if (output):
             output.writelines([title + '\t' + line + '\n'])
