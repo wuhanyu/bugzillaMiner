@@ -228,7 +228,7 @@ class NewSequenceExtractor(object):
     
     def getFromStarttimeDays(self, starttime):
         starttime = parse(starttime)
-        return (starttime - self.startTime).days
+        return (starttime - self.startTime).days + 1
     
     def processFile(self, dom, hdom, output=None):
         reportStartTime = commonFunc.getReportStartTime(dom)
@@ -270,7 +270,7 @@ class NewSequenceExtractor(object):
             line += '\t' + str(severity)
             line += '\t' + str(dependencynumber)
             line += '\t' + str(blocknumber)
-            line += '\t' + ("%.3f" % reputation)
+            line += '\t' + ("%d" % int(reputation * 100))
             line += '\t' + str(fsdays)
         if (gl.DEBUG): print line
         if (output):
