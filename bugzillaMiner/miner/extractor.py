@@ -227,6 +227,8 @@ class NewSequenceExtractor(object):
         #==================history==================
         modifications = commonFunc.getModifications(hdom)
         seq, resolution = self.getSequence(modifications)
+        attachnumber = commonFunc.getAttachsNumber(dom)
+        developernumber = commonFunc.getCCNumber(dom)
         line = seq + '\t' + resolution
         if (len(line) > 0):
             reportStartTime = commonFunc.getReportStartTime(dom)
@@ -244,6 +246,8 @@ class NewSequenceExtractor(object):
             line += '\t' + str(elapsed_days) + '\t' + str(elapsed_comments)
             line += '\t' + str(elapsed_modifications)
             line += '\t' + str(elapsed_unique_modifications)
+            line += '\t' + str(attachnumber)
+            line += '\t' + str(developernumber)
         if (gl.DEBUG): print line
         if (output):
             output.writelines([title + '\t' + line + '\n'])

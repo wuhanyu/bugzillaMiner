@@ -106,6 +106,16 @@ def getModifications(dom):
             content = getClearText(children[0].text_content())
         result.append(Modification(author, timestr, content, remove, add))
     return result
+
+def getAttachsNumber(dom):
+    items = dom.xpath('//table[@id="attachment_table"]/tr')
+    result = len(items) - 2
+    return result
+
+def getCCNumber(dom):
+    items = dom.xpath('//select[@id="cc"]/option')
+    result = len(items)
+    return result
     
 def getTitle(dom):
     title = dom.xpath('//title')[0].text

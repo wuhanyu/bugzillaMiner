@@ -32,12 +32,13 @@ if __name__ == '__main__':
     filecount = 0
     for i in range(begin, end):
  #        print '*' * 40
-        
+#        i = 241544
         filename = src + str(i) + '.html'
         
         if (miner.processFile(filename, processor, output)):
             filecount = filecount + 1
             print filename + '\t(' + str(filecount) + ')'
+#            break
     print processor
     
     commonFunc.output(processor)
