@@ -136,6 +136,11 @@ def getTitle(dom):
     title = dom.xpath('//title')[0].text
     return title
 
+def getReporter(dom):
+    reporter = dom.xpath('//span[@class="bz_comment_user"]')[0].text_content().strip()
+    return reporter
+
+
 def getDomOfFile(filepath):
     fp = open(filepath, 'r')
     html = fp.read()

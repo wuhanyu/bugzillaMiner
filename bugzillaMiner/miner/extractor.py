@@ -101,7 +101,7 @@ from dataobject import *
 #        return
 
 class TransitionExtractor(object):
-    IS_FINAL_OUTPUT = False
+    IS_FINAL_OUTPUT = True
     def __init__(self):
         pass
     
@@ -172,6 +172,8 @@ class TransitionExtractor(object):
     
 class NewSequenceExtractor(object):
     IS_FINAL_OUTPUT = False
+    reporterDict = {}
+    reporterFixDict = {}
     def __init__(self):
         pass
     
@@ -218,6 +220,13 @@ class NewSequenceExtractor(object):
                     break
         return count
     
+    def getReputation(self, reporter, resolution):
+        if (not self.reporterDict.has_key(reporter)): self.reporterDict[reporter] = 0
+        if (not self.reporterFixDict.has_key(reporter)): self.reporterFixDict[reporter] = 0
+        self.reporterDict[reporter] += 1
+        if (cmp(resolution, "FIXED") == 0): self.reporterFixDict[reporter] += 1
+        return float(self.reporterFixDict[reporter]) / (self.reporterDict[reporter] + 1)
+    
     def processFile(self, dom, hdom, output=None):
         reportStartTime = commonFunc.getReportStartTime(dom)
     #    print reportStartTime
@@ -231,6 +240,8 @@ class NewSequenceExtractor(object):
         developernumber = commonFunc.getCCNumber(dom)
         dependencynumber = commonFunc.getDependencyNum(dom)
         blocknumber = commonFunc.getBlockNum(dom)
+        reporter = commonFunc.getReporter(dom)
+        reputation = self.getReputation(reporter, resolution)
         severity = commonFunc.getBugSeverity(dom)
         line = seq + '\t' + resolution
         if (len(line) > 0):
@@ -254,6 +265,7 @@ class NewSequenceExtractor(object):
             line += '\t' + str(severity)
             line += '\t' + str(dependencynumber)
             line += '\t' + str(blocknumber)
+            line += '\t' + ("%.3f" % reputation)
         if (gl.DEBUG): print line
         if (output):
             output.writelines([title + '\t' + line + '\n'])
