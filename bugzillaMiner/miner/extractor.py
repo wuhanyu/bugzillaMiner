@@ -102,16 +102,15 @@ from dataobject import *
 
 class TransitionExtractor(object):
     IS_FINAL_OUTPUT = True
-    startTime = None
     def __init__(self):
         pass
     
     def getFromStarttimeDays(self, starttime):
-        return (starttime - self.startTime).days + 1
+        return (starttime - gl.startTime).days + 1
     
     def processFile(self, dom, hdom, output=None):
         reportStartTime = commonFunc.getReportStartTime(dom)
-        if (self.startTime == None): self.startTime = parse(reportStartTime)
+        if (gl.startTime == None): gl.startTime = parse(reportStartTime)
     #    print reportStartTime
         comments = commonFunc.getComments(dom)
         title = commonFunc.getTitle(dom).split(u' – ')[0][4:]
@@ -179,7 +178,6 @@ class TransitionExtractor(object):
     
 class NewSequenceExtractor(object):
     IS_FINAL_OUTPUT = False
-    startTime = None
     def __init__(self):
         pass
     
@@ -235,11 +233,11 @@ class NewSequenceExtractor(object):
     
     def getFromStarttimeDays(self, starttime):
         starttime = parse(starttime)
-        return (starttime - self.startTime).days + 1
+        return (starttime - gl.startTime).days + 1
     
     def processFile(self, dom, hdom, output=None):
         reportStartTime = commonFunc.getReportStartTime(dom)
-        if (self.startTime == None): self.startTime = parse(reportStartTime)
+        if (gl.startTime == None): gl.startTime = parse(reportStartTime)
     #    print reportStartTime
         comments = commonFunc.getComments(dom)
         title = commonFunc.getTitle(dom).split(u' – ')[0][4:]
