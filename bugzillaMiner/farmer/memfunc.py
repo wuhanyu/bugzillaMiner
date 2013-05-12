@@ -106,6 +106,6 @@ def getMember(label, value, memfuncs):
     value = int(value)
     for memfunc in memfuncs:
         tvalue = getMembershipValue(value, memfunc)
-        if (tvalue >= 1.00):
+        if (tvalue >= 1.0):
             result += "%s_%s" % (memfunc[0], label)
     return result
