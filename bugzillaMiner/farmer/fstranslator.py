@@ -20,7 +20,7 @@ if __name__ == '__main__':
         if (lcount % 10000 == 0): print "%d lines processed(%.1f%%, %d)" % (lcount, float(lcount)/ linecount * 100, linecount)
         tmp = line.split("\t")
         outputline = ''
-        tmp = tmp[1:]
+        tmp = tmp[2:]
         for i, item in enumerate(tmp):
             outputline += memfunc.getMembershipPair(memfunc.labels[i][0], item, memfunc.labels[i][1])
         fout.write(outputline[:-1] + "\n")

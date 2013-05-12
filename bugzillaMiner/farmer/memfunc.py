@@ -55,7 +55,8 @@ mf_fsdays = [["BeforeOpen", 1600, 1825],
          ["AfterOpen", 0, 0, 1825, 2190]
          ]
 
-labels = [["LS", None],
+labels = [
+          #["LS", None],
           ["Resolution", None],
           ["ElapseDays", mf_edays], 
           ["CommentNum", mf_comments],         
@@ -94,6 +95,6 @@ def getMembershipPair(label, value, memfuncs):
     value = int(value)
     for memfunc in memfuncs:
         tvalue = getMembershipValue(value, memfunc)
-        if (tvalue > 0):
+        if (tvalue >= 0.01):
             result += "<%s_%s,%.2f> " % (memfunc[0], label, tvalue)
     return result

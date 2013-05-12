@@ -6,7 +6,7 @@ Created on 2013-5-3
 import random
 
 if __name__ == '__main__':
-    filename = r"../result/SequenceDataExctractor_2013-03-16 1423.txt"
+    filename = r"../result/NewSequenceExctractor_2013-05-12_00.txt"
     fin = open(filename, 'r')
     data = fin.read()
     fin.close()
