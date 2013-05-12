@@ -102,11 +102,16 @@ from dataobject import *
 
 class TransitionExtractor(object):
     IS_FINAL_OUTPUT = True
+    startTime = None
     def __init__(self):
         pass
     
+    def getFromStarttimeDays(self, starttime):
+        return (starttime - self.startTime).days + 1
+    
     def processFile(self, dom, hdom, output=None):
         reportStartTime = commonFunc.getReportStartTime(dom)
+        if (self.startTime == None): self.startTime = parse(reportStartTime)
     #    print reportStartTime
         comments = commonFunc.getComments(dom)
         title = commonFunc.getTitle(dom).split(u' – ')[0][4:]
@@ -122,6 +127,7 @@ class TransitionExtractor(object):
         if (len(modifications) <= 0): return
         dtime = modifications[0].time
         tmplines = []
+        
         for modi in modifications:
             if (modi.time > dtime):
                 dcount += 1
@@ -153,7 +159,8 @@ class TransitionExtractor(object):
                 line += str(dcount - md_index - 1) + '\t'
                 md_index = dcount
                 dtime = modi.time
-                
+                fsdays = self.getFromStarttimeDays(dtime)
+                line += str(fsdays) + '\t'
                 if (gl.DEBUG): print line
                 tmplines.append(title + '\t' + line + '\n')
             count += 1

@@ -40,7 +40,7 @@ class Miner(threading.Thread):
                 gl.filecount = gl.filecount + 1
            
 if __name__ == '__main__':
-    gl.DEBUG = False
+    gl.DEBUG = True
     '''
     Main script for the miner, optimized by multi-threading tech
     '''
