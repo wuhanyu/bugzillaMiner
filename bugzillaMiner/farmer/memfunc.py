@@ -45,12 +45,12 @@ mf_block = [["DontHave", 0, 1],
          ["Have", 0, 0, 1]
          ]
 
-mf_reputation = [["Low", 0, 25],
+mf_reputation = [["Low", 25, 41],
          ["Middle", 0, 0, 25, 41, 41, 52],
          ["High", 0, 0, 41, 52]
          ]
 
-mf_fsdays = [["BeforeOpen", 0, 1600],
+mf_fsdays = [["BeforeOpen", 1600, 1825],
          ["DuringOpen", 0, 0, 1600, 1825, 1825, 2190],
          ["AfterOpen", 0, 0, 1825, 2190]
          ]
