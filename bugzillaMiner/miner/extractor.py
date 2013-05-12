@@ -145,7 +145,8 @@ class TransitionExtractor(object):
                         resolution = modifications[p].add
                     p += 1
                 
-                line += modi.remove + '-' + modi.add + ':' + resolution + '\t'
+#                line += modi.remove + '-' + modi.add + ':' + resolution + '\t'
+                line += modi.remove + '-' + modi.add + '\t'
                 p = c_index 
                 while (len(comments) > 0 and comments[p].time <= modi.time and p < len(comments) - 1):
                     p += 1

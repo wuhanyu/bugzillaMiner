@@ -11,6 +11,7 @@ import commonFunc
 import datetime
 import threading
 import time
+import random
 
 class Miner(threading.Thread):
     '''
@@ -31,7 +32,8 @@ class Miner(threading.Thread):
         while (gl.index < self.end):
 #        print '*' * 40
             filename = self.src + str(gl.index) + '.html'
-            gl.index = gl.index + 1
+#            gl.index = gl.index + 1
+            gl.index = gl.index + random.randint(1,30)
             if (gl.filecount % 100 == 0):
                 print filename + '    (' + str(gl.filecount) + ')   ' + str(datetime.datetime.now())
             

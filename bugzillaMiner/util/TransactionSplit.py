@@ -7,7 +7,7 @@ import fileinput
 
 if __name__ == '__main__':
     outputs = {}
-    input = open('../data.csv.arff', 'r')
+    input = open('../result/transidata0512.csv.arff', 'r')
     head = ''
     for line in input:
         if (cmp(line, '@data\n') != 0):
@@ -19,7 +19,7 @@ if __name__ == '__main__':
         if (len(tmp) > 1 and cmp(tmp[1], 'Transition') == 0):
             outputfiles = tmp[2][1:-2].split(',')
             for otf in outputfiles:
-                outputs[otf] = open('../data/'+otf + '.arff', 'w')
+                outputs[otf] = open('../result/data/'+otf + '.arff', 'w')
             print outputfiles
     for output in outputs:
         outputs[output].write(head)
