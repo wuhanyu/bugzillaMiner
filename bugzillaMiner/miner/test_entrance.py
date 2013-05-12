@@ -11,7 +11,7 @@ import gl
 import commonFunc
 
 if __name__ == '__main__':
-    gl.TASK_TYPE = "NewSequenceExctractor"
+    gl.TASK_TYPE = "TransitionExctractor"
     gl.DEBUG = False
     '''
     Test script for the miner

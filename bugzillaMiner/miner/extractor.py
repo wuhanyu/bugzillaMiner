@@ -101,7 +101,7 @@ from dataobject import *
 #        return
 
 class TransitionExtractor(object):
-    IS_FINAL_OUTPUT = True
+    IS_FINAL_OUTPUT = False
     def __init__(self):
         pass
     
