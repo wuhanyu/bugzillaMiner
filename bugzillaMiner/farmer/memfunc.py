@@ -98,3 +98,14 @@ def getMembershipPair(label, value, memfuncs):
         if (tvalue >= 0.01):
             result += "<%s_%s,%.2f> " % (memfunc[0], label, tvalue)
     return result
+
+def getMember(label, value, memfuncs):
+    result = ""
+    if (memfuncs == None):
+        return "%s_%s" % (value, label)
+    value = int(value)
+    for memfunc in memfuncs:
+        tvalue = getMembershipValue(value, memfunc)
+        if (tvalue >= 1.00):
+            result += "%s_%s" % (memfunc[0], label)
+    return result
