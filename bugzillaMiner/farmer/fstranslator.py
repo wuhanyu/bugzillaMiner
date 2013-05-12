@@ -6,7 +6,7 @@ Created on 2013-5-2
 import memfunc
 
 if __name__ == '__main__':
-    finname = '../result/SequenceDataExctractor_2013-03-16 1423.txt'
+    finname = '../result/NewSequenceExctractor_2013-05-12_00.txt'
     fin = open(finname, 'r')
     data = fin.read()
     fin.close()
@@ -20,7 +20,7 @@ if __name__ == '__main__':
         if (lcount % 10000 == 0): print "%d lines processed(%.1f%%, %d)" % (lcount, float(lcount)/ linecount * 100, linecount)
         tmp = line.split("\t")
         outputline = ''
-        tmp = tmp[1:6]
+        tmp = tmp[1:]
         for i, item in enumerate(tmp):
             outputline += memfunc.getMembershipPair(memfunc.labels[i][0], item, memfunc.labels[i][1])
         fout.write(outputline[:-1] + "\n")
