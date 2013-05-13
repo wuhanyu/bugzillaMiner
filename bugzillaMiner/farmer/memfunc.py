@@ -57,7 +57,7 @@ mf_fsdays = [["BeforeOpen", 1600, 1825],
 
 labels = [
           #["LS", None],
-          ["Resolution", None],
+          #["Resolution", None],
           ["ElapseDays", mf_edays], 
           ["CommentNum", mf_comments],         
           ["ModiNum", mf_modis],
