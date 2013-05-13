@@ -107,6 +107,9 @@ def getModifications(dom):
         result.append(Modification(author, timestr, content, remove, add))
     return result
 
+def getProduct(dom):
+    return dom.xpath('//td[@id="field_container_product"]')[0].text
+
 def getAttachsNumber(dom):
     items = dom.xpath('//table[@id="attachment_table"]/tr')
     result = len(items) - 2

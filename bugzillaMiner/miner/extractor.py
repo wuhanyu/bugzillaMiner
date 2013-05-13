@@ -254,6 +254,7 @@ class NewSequenceExtractor(object):
         reputation = self.getReputation(reporter, resolution)
         severity = commonFunc.getBugSeverity(dom)
         fsdays = self.getFromStarttimeDays(reportStartTime)
+        product = commonFunc.getProduct(dom)
         line = seq + '\t' + resolution
         if (len(line) > 0):
             reportStartTime = commonFunc.getReportStartTime(dom)
@@ -278,6 +279,7 @@ class NewSequenceExtractor(object):
             line += '\t' + str(blocknumber)
             line += '\t' + ("%d" % int(reputation * 100))
             line += '\t' + str(fsdays)
+            line += '\t' + product
         if (gl.DEBUG): print line
         if (output):
             output.writelines([title + '\t' + line + '\n'])
