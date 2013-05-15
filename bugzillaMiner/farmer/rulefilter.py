@@ -9,7 +9,7 @@ if __name__ == '__main__':
     #read rule
     frule = {}
     ffrule = {}
-    finname = '../result/farresult6.txt'
+    finname = '../result/farrule01.txt'
     fin = open(finname, 'r')
     for line in fin:
         tmp = line.split("}  ->  {")
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     print frule
     print ffrule
     #match
-    finname = '../result/NewSequenceExctractor_2013-05-12_00.txt'
+    finname = '../result/seqsample-thunderbird.txt'
     fin = open(finname, 'r')
     data = fin.read()
     fin.close()
@@ -38,7 +38,7 @@ if __name__ == '__main__':
         if (lcount % 10000 == 0): print "%d lines processed(%.1f%%, %d)" % (lcount, float(lcount)/ linecount * 100, linecount)
         tmp = line.split("\t")
         conditions = []
-        tmp = tmp[2:]
+        tmp = tmp[3:-1]
         for i, item in enumerate(tmp):
             conditions.append(memfunc.getMember(memfunc.labels[i][0], item, memfunc.labels[i][1]))
         flag = True
